@@ -42,16 +42,16 @@
 } */
 
 .content {
-  background-color: red;
-  width: 100px;
-  height: 100px;
-  width: calc(100% - 108px);
-  height: calc(100vh - 40px);
-  margin-left: 114px;
-  margin-top: 20px;
+  /* background-color: red; */
+  width: 10rem;
+  height: 10rem;
+  width: calc(100% - 12.2rem);
+  height: calc(100vh - 6.8rem);
+  margin-left: 12.2rem;
+  margin-top: 3.4rem;
   transition: .3s;
 }
 .menuopen{
-  width:calc(100% - 243px); 
-  margin-left: 249px;
+  width:calc(100% - 25.7rem); 
+  margin-left: 25.7rem;
 }

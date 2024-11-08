@@ -7,9 +7,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Dashboard } from "./components";
 
 import "./App.css";
+import Grid from "@mui/material/Grid2";
 
 function App() {
-  const [window, setWindow] = useState(false);
+  const [window, setWindow] = useState(true);
   const openCloseMenu = () => {
     setWindow(!window);
   };

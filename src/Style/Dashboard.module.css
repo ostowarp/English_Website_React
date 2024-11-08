@@ -1,0 +1,12 @@
+.container{
+    /* background-color: blue; */
+    margin: 0 30px;
+}
+
+.search{
+    /* background-color: red; */
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
