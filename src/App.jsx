@@ -9,15 +9,28 @@ import { Dashboard } from "./components";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [window, setWindow] = useState(false);
+  const openCloseMenu = () => {
+    setWindow(!window);
+  };
   return (
     <>
-      <NavbarMenu />
       <Router>
-        <Routes>
-          <Route path="/Dashboard" element={<Dashboard />}></Route>
-        </Routes>
+        <NavbarMenu
+          li={[
+            ["Dashboard", "icon/dashboard.svg", "/dashboard"],
+            ["Decks", "icon/decks.svg", "/decks"],
+            ["Profie", "icon/profile.svg", "/profile"],
+            ["Setting", "icon/setting.svg", "/setting"],
+          ]}
+          window={window}
+          openClose={openCloseMenu}
+        />
+        <div className={`content ${window ? "" : "menuopen"}`}>
+          <Routes>
+            <Route path="/Dashboard" element={<Dashboard />}></Route>
+          </Routes>
+        </div>
       </Router>
     </>
   );
