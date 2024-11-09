@@ -54,6 +54,7 @@
   margin-right: 1.6rem;
   color: white;
   font-size: 2rem;
+  font-family: var(--rooney-medium);
 }
 
 .item img {

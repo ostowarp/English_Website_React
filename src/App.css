@@ -46,7 +46,7 @@
   width: 10rem;
   height: 10rem;
   width: calc(100% - 12.2rem);
-  height: calc(100vh - 6.8rem);
+  /* height: calc(100vh - 6.8rem); */
   margin-left: 12.2rem;
   margin-top: 3.4rem;
   transition: .3s;

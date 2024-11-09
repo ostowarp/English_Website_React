@@ -1,15 +1,9 @@
 import styles from "../Style/Dashboard.module.css";
 // import Grid from MUI:
 import Grid from "@mui/material/Grid2";
+
 // import component:
-import {
-  WelcomeBanner,
-  SearchBar,
-  CompletedDecks,
-  DeckSlider,
-  LineChart,
-  Decks,
-} from "./";
+import { SearchBar, CompletedDecks, Decks } from "./";
 
 const Dashboard = () => {
   return (
@@ -22,7 +16,7 @@ const Dashboard = () => {
         rowSpacing={3}
       >
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={2}>
-          <WelcomeBanner name="poori"></WelcomeBanner>
+          <h1>new deck</h1>
         </Grid>
         <Grid
           item
@@ -34,14 +28,13 @@ const Dashboard = () => {
           <CompletedDecks></CompletedDecks>
         </Grid>
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}>
-          <DeckSlider />
           <Decks></Decks>
         </Grid>
         <Grid
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
           order={{ xl: 3, lg: 3, md: 2, xs: 2 }}
         >
-          <LineChart />
+          <h1>filter of decks</h1>
         </Grid>
       </Grid>
     </>
