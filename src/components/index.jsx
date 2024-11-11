@@ -1,7 +1,8 @@
 // this file for import component:
 export { default as NavbarMenu } from "./NavbarMenu";
 export { default as SearchBar } from "./SearchBar";
-export {default as CompletedDecks} from "./CompletedDecks"
+export { default as CompletedDecks } from "./CompletedDecks";
+export { default as Register } from "./Register";
 
 // Dashboard component:
 export { default as Dashboard } from "./Dashboard";

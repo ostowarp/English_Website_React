@@ -1,0 +1,97 @@
+.searchinput {
+  height: 4.8rem;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid var(--gray-hard);
+  font-family: var(--rooney-medium);
+  font-size: 1.4rem;
+  border-radius: 0.8rem;
+  width: calc(100% - 1.4rem - 0.4rem);
+  padding-left: 1.4rem;
+  /* padding-right: 1.4rem; */
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url(../assets/Rocket.svg);
+  background-size: cover;
+}
+
+.lefthand {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.righthand {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* slider card */
+.card {
+  height: 90vh;
+  background-color: var(--gray-bg);
+  border-radius: 1.4rem;
+  border: solid var(--gray-hard) 2px;
+  box-shadow: 0px 3px 64px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-family: var(--rooney-Heavy);
+  font-size: 1.8rem;
+  height: 4.8rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.16);
+}
+.tologin {
+  font-size: 1.4rem;
+  font-family: var(--rooney-medium);
+  color: var(--gray-hard);
+}
+.loginbtn {
+  color: black;
+  cursor: pointer;
+}
+
+.registerwith {
+  font-family: var(--rooney-Heavy);
+  font-size: 1.4rem;
+  color: var(--gray-hard);
+  text-align: center;
+}
+
+.emailbtn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;;
+    font-size: 1.4rem;
+    font-family: var(--rooney-medium);
+    color: black;
+  /* background-color: ; */
+  width: 100%;
+  height: 4.8rem;
+  border-radius: 0.8rem;
+  border: 2px solid var(--gray-hard);
+  transition: .3s;
+
+}
+.emailbtn:hover{
+    background-color: rgba(152, 152, 152 , 0.5);
+}

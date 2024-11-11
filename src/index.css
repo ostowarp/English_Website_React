@@ -1,54 +1,56 @@
 /* add font */
 @font-face {
-  font-family: 'RooneySansRegular';
-  src: local('RooneySansRegular'), url(./font/RooneySans/RooneySansRegular.OTF) format('opentype');
+  font-family: "RooneySansRegular";
+  src: local("RooneySansRegular"),
+    url(./font/RooneySans/RooneySansRegular.OTF) format("opentype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 @font-face {
-  font-family: 'RooneySansMedium';
-  src: local('RooneySansMedium'), url(./font/RooneySans/RooneySansMedium.OTF) format('opentype');
+  font-family: "RooneySansMedium";
+  src: local("RooneySansMedium"),
+    url(./font/RooneySans/RooneySansMedium.OTF) format("opentype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 @font-face {
-  font-family: 'RooneySansHeavy';
-  src: local('RooneySansHeavy'), url(./font/RooneySans/RooneySansHv.OTF) format('opentype');
+  font-family: "RooneySansHeavy";
+  src: local("RooneySansHeavy"),
+    url(./font/RooneySans/RooneySansHv.OTF) format("opentype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
-
 
 @font-face {
-  font-family: 'NunitoMedium';
-  src: local('NunitoMedium'), url(./font/Nunito/Nunito-Medium.ttf) format('truetype');
+  font-family: "NunitoMedium";
+  src: local("NunitoMedium"),
+    url(./font/Nunito/Nunito-Medium.ttf) format("truetype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 @font-face {
-  font-family: 'NunitoExtraBold';
-  src: local('NunitoExtraBold'), url(./font/Nunito/Nunito-ExtraBold.ttf) format('truetype');
+  font-family: "NunitoExtraBold";
+  src: local("NunitoExtraBold"),
+    url(./font/Nunito/Nunito-ExtraBold.ttf) format("truetype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 
-
-
-:root{
-  --gray-bg: #F5F5F7;
+:root {
+  --gray-bg: #f5f5f7;
+  --gray-hard: #989898;
   --rooney-regular: "RooneySansRegular";
   --rooney-medium: "RooneySansMedium";
   --rooney-Heavy: "RooneySansHeavy";
 
-  --nunito-medium:"NunitoMedium";
-  --nunito-extrabold:"NunitoExtraBold";
+  --nunito-medium: "NunitoMedium";
+  --nunito-extrabold: "NunitoExtraBold";
 }
 
+* {
+  margin: 0;
+}
 
-*{
-    margin: 0;
-  }
-  
-  html{
-    font-size: 62.5%;
-  }
+html {
+  font-size: 62.5%;
+}

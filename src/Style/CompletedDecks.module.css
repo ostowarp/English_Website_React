@@ -14,16 +14,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    justify-content: center;
+    /* background-color: red; */
+    justify-content: center;
     gap: 1em;
 }
 .completedbg h2{
     font-size: 7.2rem;
-    margin-left: 4rem;
+    /* margin-left: 4rem; */
     font-family: var(--nunito-extrabold);
 }
 .completedbg p{
     font-size: 1.6rem;
     font-family: var(--rooney-regular);
     width: 8rem;
-    margin-right: 2rem;
+    /* margin-right: 2rem; */
 }

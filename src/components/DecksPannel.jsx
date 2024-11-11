@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid2";
 // import component:
 import { SearchBar, CompletedDecks, Decks } from "./";
 
-const Dashboard = () => {
+const Dashboard = ({profile}) => {
   return (
     <>
       <Grid
@@ -24,7 +24,7 @@ const Dashboard = () => {
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
           order={{ xl: 2, lg: 2, md: 1, xs: 1 }}
         >
-          <SearchBar></SearchBar>
+          <SearchBar profile={profile}></SearchBar>
           <CompletedDecks></CompletedDecks>
         </Grid>
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}>
