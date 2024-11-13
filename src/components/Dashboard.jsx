@@ -11,19 +11,27 @@ import {
   Decks,
 } from "./";
 
-import axios from "axios";
-axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxMTk0NTE2LCJpYXQiOjE3MzExNTg1MTYsImp0aSI6ImIzMzQ2ZDEyMGM2MTQxMGE4ZjZkZTM2NDU5NDU5MTYxIiwidXNlcl9pZCI6N30.OvkmyqHUCKXHzH5n70eMa1hNBTmSWjK9V6SdX-OXwK8";
 import { useEffect, useState } from "react";
+import { getprofile } from "../servicess";
 
-const Dashboard = ({name , profile}) => {
+const Dashboard = ({ name, profile }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getprofile();
+        console.log(response.data);
+      } catch {
+        console.log("error");
+      }
+    };
+  },);
   return (
     <>
       <Grid
         item
         className={styles.container}
         container
-        columnSpacing={{ xl: 8, lg:5, md: 2, xs: 2 }}
+        columnSpacing={{ xl: 8, lg: 5, md: 2, xs: 2 }}
         rowSpacing={3}
       >
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={2}>

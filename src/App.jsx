@@ -14,9 +14,7 @@ import { NavbarMenu, Dashboard, DecksPannel, Register } from "./components";
 
 import "./App.css";
 import Grid from "@mui/material/Grid2";
-
-axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxMTk0NTE2LCJpYXQiOjE3MzExNTg1MTYsImp0aSI6ImIzMzQ2ZDEyMGM2MTQxMGE4ZjZkZTM2NDU5NDU5MTYxIiwidXNlcl9pZCI6N30.OvkmyqHUCKXHzH5n70eMa1hNBTmSWjK9V6SdX-OXwK8";
+import { getprofile } from "./servicess";
 
 function App() {
   const [profile, setProfile] = useState();
@@ -25,9 +23,7 @@ function App() {
   useEffect(() => {
     const fechData = async () => {
       try {
-        const { data: profiledata } = await axios.get(
-          "http://127.0.0.1:8000/api/getnameprof/"
-        );
+        const { data: profiledata } = await getprofile();
         console.log(profiledata);
         setProfile(profiledata.profile_img);
         setName(profiledata.name);

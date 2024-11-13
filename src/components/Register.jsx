@@ -1,3 +1,7 @@
+// NOTE: API:
+import { registerUser, loginUser, getprofile } from "../servicess";
+import axios from "axios";
+
 import styles from "../Style/Register.module.css";
 
 import { useRef } from "react";
@@ -26,6 +30,7 @@ import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 // NOTE import text filde from MUI:
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { useNavigate } from "react-router-dom";
 
 // اعتبارسنجی فرم ورود
 const loginValidationSchema = Yup.object({
@@ -48,6 +53,7 @@ const signupValidationSchema = Yup.object({
 });
 
 export default function Register() {
+  const navigate = useNavigate();
   const swiperRef = useRef(null);
   // تنظیمات فرم ورود
   const loginFormik = useFormik({
@@ -55,7 +61,26 @@ export default function Register() {
     validationSchema: loginValidationSchema,
     validateOnChange: false, // اعتبارسنجی در هنگام تغییر فیلد غیرفعال است
     validateOnBlur: false, // اعتبارسنجی در هنگام خروج از فیلد غیرفعال است
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      try {
+        const response = await loginUser({
+          username: values.username,
+          password: values.password,
+        });
+
+        // Save token in local storeg:
+        const token = response.data.access;
+        localStorage.setItem("token", token);
+
+        console.log("Login successful:", response.data);
+
+        if (response.status === 200) {
+          // NOTE اینجا کد ارسال به صفحه هوم رو بنویس
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Error during signup:", error);
+      }
       console.log("Login values", values);
     },
   });
@@ -73,8 +98,23 @@ export default function Register() {
     validateOnChange: false, // اعتبارسنجی در هنگام تغییر فیلد غیرفعال است
     validateOnBlur: false, // اعتبارسنجی در هنگام خروج از فیلد غیرفعال است
     validationSchema: signupValidationSchema,
-    onSubmit: (values) => {
-      swiperRef.current.slideTo(0);
+    onSubmit: async (values) => {
+      try {
+        const response = await registerUser({
+          first_name: values.firstName,
+          last_name: values.lastName,
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        });
+        console.log("Signup successful:", response.data);
+
+        if (swiperRef.current) {
+          swiperRef.current.slideTo(0);
+        }
+      } catch (error) {
+        console.error("Error during signup:", error);
+      }
     },
   });
 
