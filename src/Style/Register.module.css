@@ -1,4 +1,11 @@
-.searchinput {
+.errorText{
+  position: absolute;
+  left: .8rem;
+  color: red;
+  font-size: 1.2rem;
+  font-family: var(--rooney-medium);
+}
+.input {
   height: 4.8rem;
   border: none;
   background-color: rgba(0, 0, 0, 0);
