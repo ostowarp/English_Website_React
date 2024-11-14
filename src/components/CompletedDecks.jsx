@@ -1,9 +1,14 @@
+// import Context:
+import { ContactContext } from "../contexts/ProfileContext";
+import { useContext } from "react";
+
 import styles from "../Style/CompletedDecks.module.css";
 import Grid from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import { useState } from "react";
 
-export default function CompletedDecks({ dueDecks, completedDecks }) {
+export default function CompletedDecks() {
+  const { completedDecks, dueDecks } = useContext(ContactContext);
   const [loading, setLoading] = useState(false);
   return (
     <>

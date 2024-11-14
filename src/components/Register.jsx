@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 
 // NOTE: API:
 import { registerUser, loginUser, getprofile } from "../servicess";
-import axios from "axios";
 
 import styles from "../Style/Register.module.css";
 
@@ -61,7 +60,8 @@ export default function Register() {
   const { setToken } = useTokenStore();
   const navigate = useNavigate();
   const swiperRef = useRef(null);
-  // تنظیمات فرم ورود
+
+  // setting of login form:
   const loginFormik = useFormik({
     initialValues: { username: "", password: "" },
     validationSchema: loginValidationSchema,
@@ -76,7 +76,6 @@ export default function Register() {
 
         // Save token in local storeg:
         const token = response.data.access;
-        // localStorage.setItem("token", token);
         setToken(token);
         handleLogin(token);
 
@@ -85,7 +84,6 @@ export default function Register() {
         if (response.status === 200) {
           // NOTE اینجا کد ارسال به صفحه هوم رو بنویس
           navigate("/dashboard");
-          // handleLogin()
         }
       } catch (error) {
         console.error("Error during signup:", error);
@@ -94,7 +92,7 @@ export default function Register() {
     },
   });
 
-  // تنظیمات فرم ثبت‌نام
+  // setting of signup form:
   const signupFormik = useFormik({
     initialValues: {
       firstName: "",

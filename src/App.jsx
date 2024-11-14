@@ -1,8 +1,8 @@
 // import ContextAPI:
 import { AuthProvider } from "./contexts/AuthContext";
+import { ContactContext } from "./contexts/ProfileContext";
 
 import { useState, useEffect } from "react";
-import ReactDom from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // import component:
@@ -10,21 +10,19 @@ import LayOut from "./LayOut";
 import { Dashboard, DecksPannel, Register } from "./components";
 
 import "./App.css";
-import Grid from "@mui/material/Grid2";
 import { getDeckComplete, getprofile, getDecks } from "./servicess";
 import useTokenStore from "./store/useTokenstate";
 
 function App() {
   const localToken = localStorage.getItem("token");
   const { token, setToken, clearToken } = useTokenStore();
-
   const [completedDecks, setCompletedDecks] = useState();
   const [dueDecks, setDueDecks] = useState();
   const [profile, setProfile] = useState();
   const [name, setName] = useState();
   const [window, setWindow] = useState(true);
 
-  const [allDecks, setAllDecks] = useState([]);
+  // save Token into Token state:
   useEffect(() => {
     if (localToken) {
       setToken(localToken);
@@ -35,7 +33,6 @@ function App() {
       try {
         const { data: profiledata } = await getprofile(token);
         const { data: decksdata } = await getDeckComplete(token);
-
         setCompletedDecks(decksdata.completed_decks);
         setDueDecks(decksdata.due_decks);
         console.log(decksdata);
@@ -56,29 +53,40 @@ function App() {
     <>
       <Router>
         <AuthProvider>
-          <Routes>
-            <Route index element={<Register></Register>}></Route>
-            <Route
-              path="/"
-              element={<LayOut window={window} openCloseMenu={openCloseMenu} />}
-            >
+          <ContactContext.Provider
+            value={{
+              profile_img: profile,
+              profile_name: name,
+              dueDecks: dueDecks,
+              completedDecks: completedDecks,
+            }}
+          >
+            <Routes>
+              <Route index element={<Register></Register>}></Route>
               <Route
-                path="/Dashboard"
+                path="/"
                 element={
-                  <Dashboard
-                    dueDecks={dueDecks}
-                    completedDecks={completedDecks}
-                    name={name}
-                    profile={profile}
-                  />
+                  <LayOut window={window} openCloseMenu={openCloseMenu} />
                 }
-              ></Route>
-              <Route
-                path="/Decks"
-                element={<DecksPannel profile={profile} />}
-              ></Route>
-            </Route>
-          </Routes>
+              >
+                <Route
+                  path="/Dashboard"
+                  element={
+                    <Dashboard
+                      dueDecks={dueDecks}
+                      completedDecks={completedDecks}
+                      name={name}
+                      profile={profile}
+                    />
+                  }
+                ></Route>
+                <Route
+                  path="/Decks"
+                  element={<DecksPannel profile={profile} />}
+                ></Route>
+              </Route>
+            </Routes>
+          </ContactContext.Provider>
         </AuthProvider>
       </Router>
     </>
