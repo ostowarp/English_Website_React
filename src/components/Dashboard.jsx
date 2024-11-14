@@ -13,18 +13,19 @@ import {
 
 import { useEffect, useState } from "react";
 import { getprofile } from "../servicess";
+import useTokenStore from "../store/useTokenstate";
 
-const Dashboard = ({ name, profile }) => {
+const Dashboard = ({ name, profile, dueDecks, completedDecks }) => {
+  const { token } = useTokenStore();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getprofile();
-        console.log(response.data);
+        
       } catch {
         console.log("error");
       }
     };
-  },);
+  }, [token]);
   return (
     <>
       <Grid
@@ -44,7 +45,10 @@ const Dashboard = ({ name, profile }) => {
           order={{ xl: 2, lg: 2, md: 1, xs: 1 }}
         >
           <SearchBar profile={profile}></SearchBar>
-          <CompletedDecks></CompletedDecks>
+          <CompletedDecks
+            dueDecks={dueDecks}
+            completedDecks={completedDecks}
+          ></CompletedDecks>
         </Grid>
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}>
           <DeckSlider />

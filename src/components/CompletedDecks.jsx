@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import { useState } from "react";
 
-export default function CompletedDecks() {
+export default function CompletedDecks({ dueDecks, completedDecks }) {
   const [loading, setLoading] = useState(false);
   return (
     <>
@@ -16,14 +16,14 @@ export default function CompletedDecks() {
           size={{ xl: 6, lg: 6, md: 6, xs: 12 }}
           className={styles.completedbg}
         >
-          <h2>11</h2>
+          <h2>{completedDecks}</h2>
           <p>Decks Completed</p>
         </Grid>
         <Grid
           size={{ xl: 6, lg: 6, md: 6, xs: 12 }}
           className={styles.completedbg}
         >
-          <h2>99</h2>
+          <h2>{dueDecks}</h2>
           <p>Decks in Progress</p>
         </Grid>
       </Grid>

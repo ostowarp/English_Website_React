@@ -1,30 +1,45 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+// import ContextAPI:
+import { AuthProvider } from "./contexts/AuthContext";
+
+import { useState, useEffect } from "react";
 import ReactDom from "react-dom";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 // import component:
 import LayOut from "./LayOut";
-import { NavbarMenu, Dashboard, DecksPannel, Register } from "./components";
+import { Dashboard, DecksPannel, Register } from "./components";
 
 import "./App.css";
 import Grid from "@mui/material/Grid2";
-import { getprofile } from "./servicess";
+import { getDeckComplete, getprofile, getDecks } from "./servicess";
+import useTokenStore from "./store/useTokenstate";
 
 function App() {
+  const localToken = localStorage.getItem("token");
+  const { token, setToken, clearToken } = useTokenStore();
+
+  const [completedDecks, setCompletedDecks] = useState();
+  const [dueDecks, setDueDecks] = useState();
   const [profile, setProfile] = useState();
   const [name, setName] = useState();
   const [window, setWindow] = useState(true);
+
+  const [allDecks, setAllDecks] = useState([]);
+  useEffect(() => {
+    if (localToken) {
+      setToken(localToken);
+    }
+  }, []);
   useEffect(() => {
     const fechData = async () => {
       try {
-        const { data: profiledata } = await getprofile();
-        console.log(profiledata);
+        const { data: profiledata } = await getprofile(token);
+        const { data: decksdata } = await getDeckComplete(token);
+
+        setCompletedDecks(decksdata.completed_decks);
+        setDueDecks(decksdata.due_decks);
+        console.log(decksdata);
+
         setProfile(profiledata.profile_img);
         setName(profiledata.name);
       } catch {
@@ -32,7 +47,7 @@ function App() {
       }
     };
     fechData();
-  }, []);
+  }, [token]);
 
   const openCloseMenu = () => {
     setWindow(!window);
@@ -40,22 +55,31 @@ function App() {
   return (
     <>
       <Router>
-        <Routes>
-          <Route index element={<Register></Register>}></Route>
-          <Route
-            path="/"
-            element={<LayOut window={window} openCloseMenu={openCloseMenu} />}
-          >
+        <AuthProvider>
+          <Routes>
+            <Route index element={<Register></Register>}></Route>
             <Route
-              path="/Dashboard"
-              element={<Dashboard name={name} profile={profile} />}
-            ></Route>
-            <Route
-              path="/Decks"
-              element={<DecksPannel profile={profile} />}
-            ></Route>
-          </Route>
-        </Routes>
+              path="/"
+              element={<LayOut window={window} openCloseMenu={openCloseMenu} />}
+            >
+              <Route
+                path="/Dashboard"
+                element={
+                  <Dashboard
+                    dueDecks={dueDecks}
+                    completedDecks={completedDecks}
+                    name={name}
+                    profile={profile}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/Decks"
+                element={<DecksPannel profile={profile} />}
+              ></Route>
+            </Route>
+          </Routes>
+        </AuthProvider>
       </Router>
     </>
   );

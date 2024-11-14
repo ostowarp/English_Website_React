@@ -1,3 +1,5 @@
+import { getServerUrl } from "../../servicess";
+
 // import icons:
 import f1icon from "../../assets/icons/filter1.svg";
 import f2icon from "../../assets/icons/filter2.svg";
@@ -8,19 +10,53 @@ import styles from "../../Style/decks/Decks.module.css";
 // import component:
 import { Deck } from "../";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+// import golobal state:
+import useTokenStore from "../../store/useTokenstate";
+
+// import Servicess:
+import { getDecks } from "../../servicess";
+
 export default function Decks() {
+  const [loading, setLoading] = useState(false);
+  const serverurl = getServerUrl();
+  const { token } = useTokenStore();
   const location = useLocation();
   const page = location.pathname;
-  console.log(location.pathname);
-
+  const [allDecks, setAllDecks] = useState([]);
   const [colfilter, setcolfilter] = useState(0);
   function handleClick2(filter) {
     if (filter == "row") setcolfilter(0);
     else if (filter == "col") setcolfilter(1);
     console.log(colfilter);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const { data: decksData } = await getDecks(token, true);
+        if (decksData && decksData.length > 0) {
+          console.log("Decks Data received:", decksData); // نمایش داده‌ها برای بررسی
+          setAllDecks(decksData);
+        } else {
+          console.log("No data received.");
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching decks:", error.message);
+        setLoading(false); // اطمینان از تغییر وضعیت به false در صورت خطا
+      }
+    };
+    if (token) {
+      fetchData();
+    }
+  }, [token]);
+
+  if (loading) {
+    return <div>Loading.....</div>;
   }
   return (
     <div>
@@ -52,69 +88,24 @@ export default function Decks() {
           style={{ height: page == "/decks" ? "42rem" : "" }}
           className={styles.decks}
         >
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"12h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"11h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"11h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"11h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"11h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"11h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
-          <Deck
-            imgsrc={""}
-            name={"first deck"}
-            description={"my first Deck for english"}
-            time={"11h 22m"}
-            numcards={100}
-            percent={60}
-            colrow={colfilter}
-          />
+          {allDecks.length > 0 ? (
+            allDecks.map((due) => {
+              return (
+                <Deck
+                  key={due.id}
+                  imgsrc={`${serverurl}${due.deck_image}`}
+                  name={due.name} // فرض بر این است که نام از API دریافت می‌شود
+                  description={due.description}
+                  time={due.next_review}
+                  numcards={due.card_count}
+                  percent={due.percent}
+                  colrow={colfilter}
+                />
+              );
+            })
+          ) : (
+            <div>No decks available</div> // در صورتی که داده‌ای نباشد
+          )}
         </div>
         <div className={styles.filterdecks}></div>
       </div>

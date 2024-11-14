@@ -1,3 +1,6 @@
+// import contexts:
+import { useAuth } from "../contexts/AuthContext";
+
 // NOTE: API:
 import { registerUser, loginUser, getprofile } from "../servicess";
 import axios from "axios";
@@ -31,14 +34,15 @@ import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useNavigate } from "react-router-dom";
+import useTokenStore from "../store/useTokenstate";
 
-// اعتبارسنجی فرم ورود
+// LOGIN formic:
 const loginValidationSchema = Yup.object({
   username: Yup.string().required("UserName is required"),
   password: Yup.string().required("Password is required"),
 });
 
-// اعتبارسنجی فرم ثبت‌نام
+// SIGNIN formic:
 const signupValidationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
@@ -53,6 +57,8 @@ const signupValidationSchema = Yup.object({
 });
 
 export default function Register() {
+  const { handleLogin } = useAuth();
+  const { setToken } = useTokenStore();
   const navigate = useNavigate();
   const swiperRef = useRef(null);
   // تنظیمات فرم ورود
@@ -70,13 +76,16 @@ export default function Register() {
 
         // Save token in local storeg:
         const token = response.data.access;
-        localStorage.setItem("token", token);
+        // localStorage.setItem("token", token);
+        setToken(token);
+        handleLogin(token);
 
         console.log("Login successful:", response.data);
 
         if (response.status === 200) {
           // NOTE اینجا کد ارسال به صفحه هوم رو بنویس
           navigate("/dashboard");
+          // handleLogin()
         }
       } catch (error) {
         console.error("Error during signup:", error);
