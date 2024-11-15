@@ -5,4 +5,5 @@ export const ContactContext = createContext({
   profile_name: "",
   completedDecks: 0,
   dueDecks: 0,
+  decks_percent: 0,
 });

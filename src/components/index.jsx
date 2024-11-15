@@ -9,6 +9,8 @@ export { default as Dashboard } from "./Dashboard";
 export { default as WelcomeBanner } from "./WelcomeBenner";
 
 // dekcs component:
+export { default as NewDeck } from "./decks/NewDeck";
+export { default as CompletedPercent } from "./decks/CompletedPercent";
 export { default as DecksPannel } from "./DecksPannel";
 export { default as Decks } from "./decks/Decks";
 export { default as Deck } from "./decks/Deck";
@@ -22,3 +24,6 @@ export { default as BlackButton } from "./buttons/BlackButton";
 export { default as CircleGraph } from "./charts/CircleGraph";
 export { default as LineGraph } from "./charts/LineGraph";
 export { default as LineChart } from "./charts/LineChart";
+
+// Profile Components:
+export { default as ProfilePannel } from "./ProfilePannel";

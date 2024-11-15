@@ -1,5 +1,5 @@
 // import context:
-import { ContactContext } from "../contexts/ProfileContext";
+import { ContactContext } from "../contexts/ContactContext";
 import { useContext } from "react";
 
 import Hand1 from "../assets/hand-left.svg";

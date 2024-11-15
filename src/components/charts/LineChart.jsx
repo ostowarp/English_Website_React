@@ -95,9 +95,12 @@ export default function LineChart() {
 
   return (
     <div className={styles.container}>
-      <h1>Your statistics</h1>
-      <h2>this week</h2>
-      <Line data={data} options={options}  className={styles.chart} />
+      <h2>Your Statistics</h2>
+      <div className={styles.filters}>
+        <h3>This Week</h3>
+        <h3>This Mounth</h3>
+      </div>
+      <Line data={data} options={options} className={styles.chart} />
     </div>
   );
 }

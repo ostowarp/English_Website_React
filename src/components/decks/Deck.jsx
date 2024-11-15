@@ -44,6 +44,7 @@ export default function Deck({
               : styles.image2
           }
         />
+
         <span className={styles.btn}>
           <BlackButton
             notactive={
@@ -102,6 +103,7 @@ export default function Deck({
       </div>
       <CircleGraph
         circleWidth={42}
+        fontsize="1.2rem"
         percent={percent}
         notactive={page == "/decks" && !colrow ? false : true}
       />

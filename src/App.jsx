@@ -1,13 +1,13 @@
 // import ContextAPI:
 import { AuthProvider } from "./contexts/AuthContext";
-import { ContactContext } from "./contexts/ProfileContext";
+import { ContactContext } from "./contexts/ContactContext";
 
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // import component:
 import LayOut from "./LayOut";
-import { Dashboard, DecksPannel, Register } from "./components";
+import { Dashboard, DecksPannel, Register, ProfilePannel } from "./components";
 
 import "./App.css";
 import { getDeckComplete, getprofile, getDecks } from "./servicess";
@@ -18,6 +18,7 @@ function App() {
   const { token, setToken, clearToken } = useTokenStore();
   const [completedDecks, setCompletedDecks] = useState();
   const [dueDecks, setDueDecks] = useState();
+  const [completedPercent, setCompletedPercent] = useState(0);
   const [profile, setProfile] = useState();
   const [name, setName] = useState();
   const [window, setWindow] = useState(true);
@@ -35,6 +36,14 @@ function App() {
         const { data: decksdata } = await getDeckComplete(token);
         setCompletedDecks(decksdata.completed_decks);
         setDueDecks(decksdata.due_decks);
+
+        // calculate percent of completed decks:
+        const alldeck = decksdata.due_decks + decksdata.completed_decks;
+        setCompletedPercent(
+          (decksdata.completed_decks / (alldeck ? alldeck : 1)) * 100
+        );
+
+        setCompletedPercent();
         console.log(decksdata);
 
         setProfile(profiledata.profile_img);
@@ -59,6 +68,7 @@ function App() {
               profile_name: name,
               dueDecks: dueDecks,
               completedDecks: completedDecks,
+              decks_percent: completedPercent,
             }}
           >
             <Routes>
@@ -84,6 +94,7 @@ function App() {
                   path="/Decks"
                   element={<DecksPannel profile={profile} />}
                 ></Route>
+                <Route path="/Profile" element={<ProfilePannel />}></Route>
               </Route>
             </Routes>
           </ContactContext.Provider>

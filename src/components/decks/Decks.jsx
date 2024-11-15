@@ -8,7 +8,7 @@ import f2icon from "../../assets/icons/filter2.svg";
 import styles from "../../Style/decks/Decks.module.css";
 
 // import component:
-import { Deck } from "../";
+import { Deck, NewDeck } from "../";
 
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -98,13 +98,13 @@ export default function Decks() {
                   description={due.description}
                   time={due.next_review}
                   numcards={due.card_count}
-                  percent={due.percent}
+                  percent={due.completed_cards}
                   colrow={colfilter}
                 />
               );
             })
           ) : (
-            <div>No decks available</div> // در صورتی که داده‌ای نباشد
+            <NewDeck display={false}></NewDeck>
           )}
         </div>
         <div className={styles.filterdecks}></div>

@@ -4,7 +4,26 @@
   /* background-color: red; */
 }
 
-/* .container{
-    background-color: blue;
-    
-} */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+.container h2 {
+  font-size: 2.4rem;
+  font-family: var(--rooney-Heavy);
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 2.4rem;
+  color: gray;
+}
+
+.filters h3 {
+  font-size: 1.6rem;
+  font-family: var(--rooney-Heavy);
+}

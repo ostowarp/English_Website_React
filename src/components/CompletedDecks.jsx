@@ -1,5 +1,5 @@
 // import Context:
-import { ContactContext } from "../contexts/ProfileContext";
+import { ContactContext } from "../contexts/ContactContext";
 import { useContext } from "react";
 
 import styles from "../Style/CompletedDecks.module.css";
