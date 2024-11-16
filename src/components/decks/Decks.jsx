@@ -1,3 +1,4 @@
+// Note Note: NOte:
 import { getServerUrl } from "../../servicess";
 
 // import icons:
@@ -93,8 +94,9 @@ export default function Decks() {
               return (
                 <Deck
                   key={due.id}
-                  imgsrc={`${serverurl}${due.deck_image}`}
-                  name={due.name} // فرض بر این است که نام از API دریافت می‌شود
+                  id={due.id}
+                  language={due.language}
+                  name={due.name}
                   description={due.description}
                   time={due.next_review}
                   numcards={due.card_count}

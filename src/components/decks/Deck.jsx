@@ -1,6 +1,7 @@
 // import icons:
 import watch from "../../assets/icons/watch.svg";
 import cards from "../../assets/icons/cards.svg";
+import FlagIcon from "react-world-flags";
 
 // import style:
 import styles from "../../Style/decks/Deck.module.css";
@@ -9,8 +10,28 @@ import styles from "../../Style/decks/Deck.module.css";
 import { CircleGraph, LineGraph, BlackButton } from "../";
 
 import { useLocation } from "react-router-dom";
+const languages = [
+  { label: "Afrikaans", flag: "ZA" },
+  { label: "Arabic", flag: "SA" },
+  { label: "Persian", flag: "IR" },
+  { label: "English", flag: "GB" },
+  { label: "French", flag: "FR" },
+  { label: "Spanish", flag: "ES" },
+  { label: "German", flag: "DE" },
+  { label: "Russian", flag: "RU" },
+  { label: "Chinese", flag: "CN" },
+  { label: "Japanese", flag: "JP" },
+];
+const getFlagByLabel = (label) => {
+  const language = languages.find(
+    (lang) => lang.label.toLowerCase() === label.toLowerCase()
+  );
+  return language ? language.flag : "unknown";
+};
+
 export default function Deck({
-  imgsrc,
+  id,
+  language,
   name = "New deck",
   description = "Taken from Lucy Movie",
   time,
@@ -18,6 +39,7 @@ export default function Deck({
   percent = 0,
   colrow = 0,
 }) {
+  const flag = getFlagByLabel(language);
   const location = useLocation();
   const page = location.pathname ? location.pathname : "/dashboard";
   return (
@@ -35,18 +57,18 @@ export default function Deck({
             : styles.bigimage2
         }
       >
-        <img
-          src={imgsrc}
-          alt="Photo"
+        <FlagIcon
           className={
             (page == "/decks" && !colrow) || page == "/dashboard"
               ? styles.image
               : styles.image2
           }
+          code={flag}
         />
 
         <span className={styles.btn}>
           <BlackButton
+            id={id}
             notactive={
               (page == "/decks" && !colrow) || page == "/dashboard"
                 ? true
@@ -107,7 +129,10 @@ export default function Deck({
         percent={percent}
         notactive={page == "/decks" && !colrow ? false : true}
       />
-      <BlackButton notactive={page == "/dashboard" || !colrow ? false : true}>
+      <BlackButton
+        id={id}
+        notactive={page == "/dashboard" || !colrow ? false : true}
+      >
         Continue
       </BlackButton>
     </div>

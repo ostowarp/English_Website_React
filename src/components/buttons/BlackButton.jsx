@@ -1,7 +1,14 @@
 import styles from "../../Style/buttons/BlackButton.module.css";
-export default function BlackButton({ children, notactive }) {
+import { useNavigate } from "react-router-dom";
+export default function BlackButton({ children, notactive, id }) {
+  const navigate = useNavigate();
   return (
-    <button className={`${styles.button} ${notactive ? styles.active : ""}`}>
+    <button
+      onClick={() => {
+        navigate(`/decks/${id}`);
+      }}
+      className={`${styles.button} ${notactive ? styles.active : ""}`}
+    >
       {children}
     </button>
   );

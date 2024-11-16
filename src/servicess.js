@@ -57,3 +57,13 @@ export const getDecks = (token, all) => {
     },
   });
 };
+
+// Get single Deck:
+export const getDeck = (token, id) => {
+  const url = `/decks/${id}`;
+  return api.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

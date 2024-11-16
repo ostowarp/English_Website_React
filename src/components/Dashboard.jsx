@@ -15,12 +15,11 @@ import { useEffect, useState } from "react";
 import { getprofile } from "../servicess";
 import useTokenStore from "../store/useTokenstate";
 
-const Dashboard = ({ name, profile, dueDecks, completedDecks }) => {
+const Dashboard = () => {
   const { token } = useTokenStore();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
       } catch {
         console.log("error");
       }
@@ -36,7 +35,7 @@ const Dashboard = ({ name, profile, dueDecks, completedDecks }) => {
         rowSpacing={3}
       >
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={2}>
-          <WelcomeBanner name={name}></WelcomeBanner>
+          <WelcomeBanner></WelcomeBanner>
         </Grid>
         <Grid
           item
@@ -44,11 +43,8 @@ const Dashboard = ({ name, profile, dueDecks, completedDecks }) => {
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
           order={{ xl: 2, lg: 2, md: 1, xs: 1 }}
         >
-          <SearchBar profile={profile}></SearchBar>
-          <CompletedDecks
-            dueDecks={dueDecks}
-            completedDecks={completedDecks}
-          ></CompletedDecks>
+          <SearchBar></SearchBar>
+          <CompletedDecks></CompletedDecks>
         </Grid>
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}>
           <DeckSlider />

@@ -28,6 +28,7 @@ import useTokenStore from "../../store/useTokenstate";
 // import servicess:
 import { getDecks } from "../../servicess";
 
+
 export default function DeckSlider() {
   const [loading, setLoading] = useState(false);
   const serverUrl = getServerUrl();
@@ -94,9 +95,9 @@ export default function DeckSlider() {
               <SwiperSlide key={due.id}>
                 <DeckTop
                   id={due.id}
-                  imgsrc={`${serverUrl}${due.deck_image}`}
+                  language={due.language}
                   name={due.name}
-                  description={due.description || "...."}
+                  description={due.description || due.language}
                   percent={due.percent_deck}
                 />
               </SwiperSlide>

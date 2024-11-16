@@ -7,7 +7,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // import component:
 import LayOut from "./LayOut";
-import { Dashboard, DecksPannel, Register, ProfilePannel } from "./components";
+import {
+  Dashboard,
+  DecksPannel,
+  Register,
+  ProfilePannel,
+  SingleDeck,
+} from "./components";
 
 import "./App.css";
 import { getDeckComplete, getprofile, getDecks } from "./servicess";
@@ -19,8 +25,13 @@ function App() {
   const [completedDecks, setCompletedDecks] = useState();
   const [dueDecks, setDueDecks] = useState();
   const [completedPercent, setCompletedPercent] = useState(0);
-  const [profile, setProfile] = useState();
-  const [name, setName] = useState();
+  const [profile, setProfile] = useState({
+    usename: "",
+    email: "",
+    image: "",
+    first_name: "",
+    last_name: "",
+  });
   const [window, setWindow] = useState(true);
 
   // save Token into Token state:
@@ -46,8 +57,13 @@ function App() {
         setCompletedPercent();
         console.log(decksdata);
 
-        setProfile(profiledata.profile_img);
-        setName(profiledata.name);
+        setProfile({
+          username: profiledata.username,
+          email: profiledata.email,
+          image: profiledata.profile_img,
+          first_name: profiledata.first_name,
+          last_name: profiledata.last_name,
+        });
       } catch {
         console.log("error");
       }
@@ -64,8 +80,7 @@ function App() {
         <AuthProvider>
           <ContactContext.Provider
             value={{
-              profile_img: profile,
-              profile_name: name,
+              profile: profile,
               dueDecks: dueDecks,
               completedDecks: completedDecks,
               decks_percent: completedPercent,
@@ -85,16 +100,12 @@ function App() {
                     <Dashboard
                       dueDecks={dueDecks}
                       completedDecks={completedDecks}
-                      name={name}
-                      profile={profile}
                     />
                   }
                 ></Route>
-                <Route
-                  path="/Decks"
-                  element={<DecksPannel profile={profile} />}
-                ></Route>
+                <Route path="/Decks" element={<DecksPannel />}></Route>
                 <Route path="/Profile" element={<ProfilePannel />}></Route>
+                <Route path="/Decks/:id" element={<SingleDeck />}></Route>
               </Route>
             </Routes>
           </ContactContext.Provider>

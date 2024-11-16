@@ -9,6 +9,7 @@ export { default as Dashboard } from "./Dashboard";
 export { default as WelcomeBanner } from "./WelcomeBenner";
 
 // dekcs component:
+export { default as SingleDeck } from "./decks/SingleDeck";
 export { default as NewDeck } from "./decks/NewDeck";
 export { default as CompletedPercent } from "./decks/CompletedPercent";
 export { default as DecksPannel } from "./DecksPannel";

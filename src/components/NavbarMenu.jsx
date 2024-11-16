@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "../Style/NavbarMenu.module.css";
 
-const NavbarMenu = ({ li , openClose , window }) => {
+// import icons:
+import menuicon from "../assets/icons/menu.svg";
 
+const NavbarMenu = ({ li, openClose, window }) => {
   return (
     <nav
       className={styles.navbar}
-      style={{ width: window === false ? "243px" : "108px"  , overflow:"hidden"}}
+      style={{
+        width: window === false ? "243px" : "108px",
+        overflow: "hidden",
+      }}
     >
       <Link to={"/dashboard"}>
         <img className={styles.logo} src="./logo.png" alt="" />
@@ -39,7 +44,7 @@ const NavbarMenu = ({ li , openClose , window }) => {
         ))}
       </ul>
       <div className={styles.burger} onClick={() => openClose()}>
-        <img src="icon/menu.svg" alt="burger" />
+        <img src={menuicon} alt="burger" />
       </div>
     </nav>
   );
