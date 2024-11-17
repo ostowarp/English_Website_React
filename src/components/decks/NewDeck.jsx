@@ -4,7 +4,7 @@ import styles from "../../Style/decks/NewDeck.module.css";
 // import icons:
 import addicon from "../../assets/icons/adddeck.svg";
 
-export default function NewDeck({ display = true }) {
+export default function NewDeck({ handleclose, display = true }) {
   return (
     <>
       <div
@@ -22,7 +22,12 @@ export default function NewDeck({ display = true }) {
             Create new decks for yourself and create new cards in it
           </p>
         </div>
-        <img style={{ cursor: "pointer" }} src={addicon} alt="" />
+        <img
+          onClick={() => handleclose()}
+          style={{ cursor: "pointer" }}
+          src={addicon}
+          alt=""
+        />
       </div>
     </>
   );

@@ -50,7 +50,6 @@ export const getDeckComplete = (token) => {
 // get Due or all decks:
 export const getDecks = (token, all) => {
   const url = all ? "/decks/all" : "/decks/";
-  // const url = "decks";
   return api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -62,6 +61,36 @@ export const getDecks = (token, all) => {
 export const getDeck = (token, id) => {
   const url = `/decks/${id}`;
   return api.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// Get Category:
+export const getCategoies = (token) => {
+  const url = "/categories/";
+  return api.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// Add POST Category:
+export const addCategory = (token, category) => {
+  const url = "/categories/";
+  return api.post(url, category, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// Add (POST) Deck:
+export const createDeck = (token, newDeck) => {
+  const url = "/decks/create/";
+  return api.post(url, newDeck, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

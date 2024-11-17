@@ -1,5 +1,5 @@
 // import components:
-import { SearchBar } from "../";
+import { SearchBar, CompletedCard } from "../";
 import Grid from "@mui/material/Grid2";
 import FlagIcon from "react-world-flags";
 
@@ -39,6 +39,7 @@ const getFlagByLabel = (label) => {
 };
 
 export default function SingleDeck() {
+  // const [categories, setCategories] = useState([]);
   const [deck, setDeck] = useState();
   const { token } = useTokenStore();
   const { id } = useParams("id");
@@ -65,59 +66,74 @@ export default function SingleDeck() {
         rowSpacing={3}
       >
         {deck ? (
-          <Grid
-            className={styles.deckdetails}
-            size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
-            order={2}
-          >
-            <div className={styles.nameedit}>
-              <span className={styles.image}>
-                <FlagIcon
-                  code={getFlagByLabel(deck.language)}
-                  style={{
-                    width: "4.8rem",
-                    height: "4.8rem",
-                    borderRadius: ".8rem",
-                  }}
-                />
-                <span className={styles.name}>
-                  <h3>{deck.name}</h3>
-                  <p>{deck.language}</p>
+          <>
+            <Grid
+              className={styles.deckdetails}
+              size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
+              order={2}
+            >
+              <div className={styles.nameedit}>
+                <span className={styles.image}>
+                  <FlagIcon
+                    code={getFlagByLabel(deck.language)}
+                    style={{
+                      width: "4.8rem",
+                      height: "4.8rem",
+                      borderRadius: ".8rem",
+                    }}
+                  />
+                  <span className={styles.name}>
+                    <h3>{deck.name}</h3>
+                    <p>{deck.language}</p>
+                  </span>
                 </span>
-              </span>
-              <span className={styles.editdelete}>
-                <img src={editicon} alt="" />
-                <img src={deleteicon} alt="" />
-              </span>
-            </div>
-            <p className={styles.description}>
-              <span>Description: </span>
-              {deck.description}
-            </p>
-            <div className={styles.categorys}>
-              <span className={styles.category}>
-                <p>romans</p>
-              </span>
-              <span className={styles.category}>
-                <p>books</p>
-              </span>
-              <span className={styles.category}>
-                <p>english</p>
-              </span>
-            </div>
-          </Grid>
+                <span className={styles.editdelete}>
+                  <img src={editicon} alt="" />
+                  <img src={deleteicon} alt="" />
+                </span>
+              </div>
+              <p className={styles.description}>
+                <span>Description: </span>
+                {deck.description}
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: ".8rem",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "1.4rem",
+                    fontFamily: "var(--rooney-medium)",
+                  }}
+                >
+                  Category:
+                </h4>
+                <div className={styles.categories}>
+                  {deck.categories.map((category, index) => (
+                    <span key={category.id} className={styles.category}>
+                      <p>{category.name}</p>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Grid>
+
+            <Grid
+              item
+              className={styles.search}
+              size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
+              order={{ xl: 2, lg: 2, md: 1, xs: 1 }}
+            >
+              <SearchBar></SearchBar>
+              <CompletedCard percent={deck.completed_cards}></CompletedCard>
+            </Grid>
+          </>
         ) : (
           ""
         )}
-
-        <Grid
-          item
-          className={styles.search}
-          size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
-          order={{ xl: 2, lg: 2, md: 1, xs: 1 }}
-        >
-          <SearchBar></SearchBar>
-        </Grid>
         <Grid size={12} order={3}>
           dsafasddfjkaskdfl
         </Grid>

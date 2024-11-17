@@ -9,11 +9,19 @@ import {
   Decks,
   NewDeck,
   CompletedPercent,
+  AddDeck,
 } from "./";
+import { useState } from "react";
 
 const Dashboard = ({ profile }) => {
+  const [addClose, setAddClose] = useState(false);
+
+  const handleclose = () => {
+    setAddClose(!addClose);
+  };
   return (
     <>
+      {addClose ? <AddDeck handleclose={() => handleclose()}></AddDeck> : ""}
       <Grid
         item
         className={styles.container}
@@ -28,7 +36,7 @@ const Dashboard = ({ profile }) => {
           order={2}
         >
           <Grid size={{ xl: 6, lg: 6, md: 6, xs: 12 }}>
-            <NewDeck></NewDeck>
+            <NewDeck handleclose={() => handleclose()}></NewDeck>
           </Grid>
           <Grid size={{ xl: 6, lg: 6, md: 6, xs: 12 }}>
             <CompletedPercent></CompletedPercent>
@@ -44,7 +52,7 @@ const Dashboard = ({ profile }) => {
           <CompletedDecks></CompletedDecks>
         </Grid>
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}>
-          <Decks></Decks>
+          <Decks handleclose={() => handleclose()}></Decks>
         </Grid>
         <Grid
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}

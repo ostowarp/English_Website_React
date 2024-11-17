@@ -63,6 +63,7 @@ export default function Deck({
               ? styles.image
               : styles.image2
           }
+          
           code={flag}
         />
 

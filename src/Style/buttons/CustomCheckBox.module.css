@@ -1,0 +1,50 @@
+.checkboxContainer {
+  display: inline-block;
+  position: relative;
+}
+
+.customCheckbox {
+  display: none; /* مخفی کردن چک‌باکس پیش‌فرض */
+}
+
+.customCheckboxLabel {
+  display: inline-block;
+  padding: 0.4rem 0.8rem; /* فضای داخلی برای تنظیم اندازه */
+  color: var(--gray-hard);
+  cursor: pointer;
+  border: 2px solid var(--gray-hard);
+  border-radius: 100rem;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.boxcontent {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.boxcontent img {
+  transition: 0.3s;
+}
+
+/* تغییر استایل در حالت انتخاب شده */
+.customCheckbox:checked + .customCheckboxLabel {
+  background-color: black;
+  color: var(--gray-bg);
+  border-color: black;
+}
+.customCheckbox:checked + .customCheckboxLabel img {
+  transform: rotate(45deg);
+  filter: brightness(0) invert(1);
+}
+
+/* افکت hover */
+/* .customCheckboxLabel:hover {
+  border-color: black;
+  color: black;
+}
+
+.customCheckboxLabel:hover img {
+  filter: brightness(0) invert(0);
+} */

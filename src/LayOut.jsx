@@ -21,6 +21,7 @@ export default function LayOut({ window, openCloseMenu }) {
         openClose={openCloseMenu}
       />
       <div className={`content ${window ? "" : "menuopen"}`}>
+        
         <Outlet />
       </div>
     </>

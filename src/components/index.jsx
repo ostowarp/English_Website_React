@@ -9,6 +9,8 @@ export { default as Dashboard } from "./Dashboard";
 export { default as WelcomeBanner } from "./WelcomeBenner";
 
 // dekcs component:
+export { default as CompletedCard } from "./decks/CompletedCard";
+export { default as AddDeck } from "./decks/AddDeck";
 export { default as SingleDeck } from "./decks/SingleDeck";
 export { default as NewDeck } from "./decks/NewDeck";
 export { default as CompletedPercent } from "./decks/CompletedPercent";
@@ -20,6 +22,7 @@ export { default as DeckTop } from "./decks/DeckTop";
 
 // button & chart component:
 // button:
+export { default as CustomCheckBox } from "./buttons/CustomCheckBox";
 export { default as BlackButton } from "./buttons/BlackButton";
 // chart:
 export { default as CircleGraph } from "./charts/CircleGraph";

@@ -20,7 +20,7 @@ import useTokenStore from "../../store/useTokenstate";
 // import Servicess:
 import { getDecks } from "../../servicess";
 
-export default function Decks() {
+export default function Decks({ handleclose }) {
   const [loading, setLoading] = useState(false);
   const serverurl = getServerUrl();
   const { token } = useTokenStore();
@@ -106,7 +106,10 @@ export default function Decks() {
               );
             })
           ) : (
-            <NewDeck display={false}></NewDeck>
+            <NewDeck
+              handleclose={() => handleclose()}
+              display={false}
+            ></NewDeck>
           )}
         </div>
         <div className={styles.filterdecks}></div>

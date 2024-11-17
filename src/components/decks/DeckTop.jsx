@@ -23,7 +23,7 @@ const getFlagByLabel = (label) => {
   );
   return language ? language.flag : "unknown";
 };
-export default function DeckTop({ description, name, language, percent }) {
+export default function DeckTop({ description, name, language, percent, id }) {
   const flag = getFlagByLabel(language);
   return (
     <div className={styles.topdeck}>
@@ -35,7 +35,7 @@ export default function DeckTop({ description, name, language, percent }) {
       <div className={styles.graph}>
         <CircleGraph percent={percent} circleWidth="42" />
       </div>
-      <BlackButton>Continue</BlackButton>
+      <BlackButton id={id}>Continue</BlackButton>
     </div>
   );
 }

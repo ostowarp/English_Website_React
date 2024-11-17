@@ -9,13 +9,14 @@ import {
   DeckSlider,
   LineChart,
   Decks,
+  AddDeck,
 } from "./";
 
 import { useEffect, useState } from "react";
-import { getprofile } from "../servicess";
 import useTokenStore from "../store/useTokenstate";
 
 const Dashboard = () => {
+  const [addClose, setAddClose] = useState(false);
   const { token } = useTokenStore();
   useEffect(() => {
     const fetchData = async () => {
@@ -25,8 +26,14 @@ const Dashboard = () => {
       }
     };
   }, [token]);
+
+  const handleclose = () => {
+    setAddClose(!addClose);
+  };
   return (
     <>
+      {addClose ? <AddDeck handleclose={() => handleclose()}></AddDeck> : ""}
+
       <Grid
         item
         className={styles.container}
@@ -48,7 +55,7 @@ const Dashboard = () => {
         </Grid>
         <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}>
           <DeckSlider />
-          <Decks></Decks>
+          <Decks handleclose={() => handleclose()}></Decks>
         </Grid>
         <Grid
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
