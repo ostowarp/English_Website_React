@@ -1,0 +1,80 @@
+.container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  margin-left: 5vh;
+  position: relative;
+  /* height: 60vh; */
+  background-color: var(--gray-bg);
+
+  border-radius: 1.4rem;
+  border: solid var(--gray-hard) 2px;
+  box-shadow: 0px 3px 64px rgba(0, 0, 0, 0.2);
+  width: 26vw;
+  min-width: 36rem;
+}
+
+.closebtn {
+  cursor: pointer;
+  position: absolute;
+  right: 1.6rem;
+  top: 1.6rem;
+}
+
+.icon {
+  width: 3.2rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 2rem;
+}
+.content p {
+  text-align: center;
+  font-size: 1.6rem;
+  font-family: var(--rooney-medium);
+  max-width: 38.6rem;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.btns button {
+  padding: 1rem 1.4rem;
+  min-width: none;
+  font-family: var(--rooney-medium);
+  font-size: 1.6rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+}
+
+.btns button:hover {
+  filter: contrast(0.9);
+}
+
+.cancel {
+  background-color: var(--gray-bg);
+  border: 2px solid var(--gray-hard);
+  color: var(--gray-hard);
+}
+
+.confirm {
+  background-color: var(--red-low);
+  border: 2px solid var(--red-low);
+  color: var(--gray-bg);
+}

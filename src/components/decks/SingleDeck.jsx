@@ -1,13 +1,13 @@
 // import components:
-import { SearchBar, CompletedCard } from "../";
+import { SearchBar, CompletedCard, Confirm } from "../";
 import Grid from "@mui/material/Grid2";
 import FlagIcon from "react-world-flags";
 
 // import servicess:
-import { getDeck } from "../../servicess";
+import { getDeck, deleteDeck } from "../../servicess";
 import { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // import styles:
 import styles from "../../Style/decks/SingleDeck.module.css";
@@ -39,7 +39,8 @@ const getFlagByLabel = (label) => {
 };
 
 export default function SingleDeck() {
-  // const [categories, setCategories] = useState([]);
+  const [confirm, setConfirm] = useState(false);
+  const navigate = useNavigate();
   const [deck, setDeck] = useState();
   const { token } = useTokenStore();
   const { id } = useParams("id");
@@ -48,7 +49,6 @@ export default function SingleDeck() {
       try {
         const { data: deckdata } = await getDeck(token, id);
         setDeck(deckdata);
-        console.log({ ...deckdata, language: deckdata.language });
       } catch {
         console.log("error");
       }
@@ -56,8 +56,32 @@ export default function SingleDeck() {
     fetchDeck();
   }, [token]);
 
+  // Handle Delete:
+  const handleDeleteDeck = async () => {
+    try {
+      const { data: deckDeletedata } = await deleteDeck(token, deck.id);
+      navigate("/decks");
+
+      log(deckDelete);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleconfirm = () => {
+    setConfirm(!confirm);
+  };
+
   return (
     <>
+      {confirm ? (
+        <Confirm
+          close={() => handleconfirm()}
+          confirm={() => handleDeleteDeck()}
+        ></Confirm>
+      ) : (
+        ""
+      )}
       <Grid
         item
         className={styles.container}
@@ -88,8 +112,13 @@ export default function SingleDeck() {
                   </span>
                 </span>
                 <span className={styles.editdelete}>
-                  <img src={editicon} alt="" />
-                  <img src={deleteicon} alt="" />
+                  <img src={editicon} alt="edit" />
+                  <img
+                    onClick={() => handleconfirm()}
+                    src={deleteicon}
+                    alt="delete"
+                    style={{ cursor: "pointer" }}
+                  />
                 </span>
               </div>
               <p className={styles.description}>

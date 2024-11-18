@@ -9,7 +9,6 @@ import { NavbarMenu } from "./components";
 export default function LayOut({ window, openCloseMenu }) {
   return (
     <>
-      {/* <h1>hello</h1> */}
       <NavbarMenu
         li={[
           ["Dashboard", dashboardicon, "/dashboard"],
@@ -21,7 +20,6 @@ export default function LayOut({ window, openCloseMenu }) {
         openClose={openCloseMenu}
       />
       <div className={`content ${window ? "" : "menuopen"}`}>
-        
         <Outlet />
       </div>
     </>

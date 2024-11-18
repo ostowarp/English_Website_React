@@ -96,3 +96,13 @@ export const createDeck = (token, newDeck) => {
     },
   });
 };
+
+// (DELETE) Deck:
+export const deleteDeck = (token, deckId) => {
+  const url = `/decks/${deckId}/delete/`;
+  return api.delete(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

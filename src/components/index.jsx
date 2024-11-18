@@ -22,6 +22,7 @@ export { default as DeckTop } from "./decks/DeckTop";
 
 // button & chart component:
 // button:
+export { default as Confirm } from "./buttons/Confirm";
 export { default as CustomCheckBox } from "./buttons/CustomCheckBox";
 export { default as BlackButton } from "./buttons/BlackButton";
 // chart:

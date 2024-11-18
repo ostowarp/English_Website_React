@@ -98,6 +98,7 @@
 }
 
 .categories p {
+  text-wrap: nowrap;
   margin: 0.4rem 0.8rem;
   color: var(--gray-hard);
   font-size: 1.4rem;

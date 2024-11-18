@@ -106,7 +106,7 @@ export default function AddDeck({ handleclose }) {
     // default value for name and description:
     data.name = data.name === "" ? "New Deck" : data.name;
     data.description = data.description === "" ? "..." : data.description;
-    
+
     // add categories:
     data.category_ids = categories
       .filter((cat) => selectedOptions.includes(cat.name))
@@ -127,7 +127,6 @@ export default function AddDeck({ handleclose }) {
 
   return (
     <>
-      <div className={styles.background}></div>
       <div className={styles.container}>
         <div className={styles.card}>
           <form onSubmit={handleCreateDeck} action="">

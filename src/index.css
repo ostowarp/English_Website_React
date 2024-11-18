@@ -39,6 +39,8 @@
 :root {
   --gray-bg: #f5f5f7;
   --gray-hard: #989898;
+  --red-low: #f66163;
+
   --rooney-regular: "RooneySansRegular";
   --rooney-medium: "RooneySansMedium";
   --rooney-Heavy: "RooneySansHeavy";
