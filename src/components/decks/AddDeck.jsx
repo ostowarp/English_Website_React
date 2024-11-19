@@ -1,5 +1,5 @@
 // import servicess:
-import { getCategoies, addCategory, createDeck } from "../../servicess";
+import { getCategories, addCategory, createDeck } from "../../servicess";
 
 import { useEffect, useRef, useState } from "react";
 import styles from "../../Style/decks/AddDeck.module.css";
@@ -43,7 +43,7 @@ export default function AddDeck({ handleclose }) {
   //   Note loade categories:
   const loadCategories = async () => {
     try {
-      const { data: categoriesdata } = await getCategoies(token);
+      const { data: categoriesdata } = await getCategories(token);
       setCategories(categoriesdata);
       console.log("ljaljlfja;ljf;lja;ljf;jads;ljfl;asjd;lfj;asdjf");
 

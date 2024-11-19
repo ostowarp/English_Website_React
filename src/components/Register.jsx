@@ -2,7 +2,7 @@
 import { useAuth } from "../contexts/AuthContext";
 
 // NOTE: API:
-import { registerUser, loginUser, getprofile } from "../servicess";
+import { registerUser, loginUser, getProfile } from "../servicess";
 
 import styles from "../Style/Register.module.css";
 

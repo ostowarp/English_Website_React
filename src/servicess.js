@@ -10,27 +10,53 @@ import useTokenStore from "./store/useTokenstate";
 import { getToken } from "./store/useTokenstate";
 const token = getToken();
 
+// -------------------------------
+// Axios Instance Configuration
+// -------------------------------
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
+  baseURL: `${SERVER_URL}/api/`,
 });
-// Noteحالا میتونیم به جای اکسیوس از ای پی ای استفاده کنیم:
 
-// Register User NOTE POST method:
+// -------------------------------
+// User Authentication APIs
+// -------------------------------
+
+// Register a new user (POST)
 export const registerUser = (user) => {
-  const url = `${SERVER_URL}/api/user/create/`;
+  const url = `${SERVER_URL}/api/register/`;
   return axios.post(url, user);
 };
 
-// Login User NOTE POST method:
+// Login user and get access/refresh tokens (POST)
 export const loginUser = (user) => {
   const url = `${SERVER_URL}/api/token/`;
   return axios.post(url, user);
 };
 
+// NOTE: this is for refresh token api:
+export const refreshToken = (refreshToken) => {
+  const url = "/token/refresh/";
+  return api.post(url, { refresh: refreshToken });
+};
+
 // get profile and full name:
-export const getprofile = (token) => {
-  const url = "/getnameprof/";
+export const getProfile = (token) => {
+  const url = "/profile/";
   return api.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// -------------------------------
+// Deck Management APIs
+// -------------------------------
+
+// (Create:POST) Deck:
+export const createDeck = (token, newDeck) => {
+  const url = "/decks/create/";
+  return api.post(url, newDeck, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -39,7 +65,7 @@ export const getprofile = (token) => {
 
 // get Deck complete number:
 export const getDeckComplete = (token) => {
-  const url = "/deckcompleted/";
+  const url = "/completed/decks/";
   return api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -57,9 +83,9 @@ export const getDecks = (token, all) => {
   });
 };
 
-// Get single Deck:
+// Get specific single Deck:
 export const getDeck = (token, id) => {
-  const url = `/decks/${id}`;
+  const url = `/decks/${id}/`;
   return api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -67,15 +93,19 @@ export const getDeck = (token, id) => {
   });
 };
 
-// Get Category:
-export const getCategoies = (token) => {
-  const url = "/categories/";
-  return api.get(url, {
+// (DELETE) Deck:
+export const deleteDeck = (token, deckId) => {
+  const url = `/decks/${deckId}/`;
+  return api.delete(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 };
+
+// -------------------------------
+// Category Management APIs
+// -------------------------------
 
 // Add POST Category:
 export const addCategory = (token, category) => {
@@ -87,20 +117,10 @@ export const addCategory = (token, category) => {
   });
 };
 
-// Add (POST) Deck:
-export const createDeck = (token, newDeck) => {
-  const url = "/decks/create/";
-  return api.post(url, newDeck, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-// (DELETE) Deck:
-export const deleteDeck = (token, deckId) => {
-  const url = `/decks/${deckId}/delete/`;
-  return api.delete(url, {
+// Get All Categories:
+export const getCategories = (token) => {
+  const url = "/categories/";
+  return api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -16,14 +16,16 @@ import {
 } from "./components";
 
 import "./App.css";
-import { getDeckComplete, getprofile, getDecks } from "./servicess";
+import { getProfile } from "./servicess";
 import useTokenStore from "./store/useTokenstate";
 
 function App() {
   const localToken = localStorage.getItem("token");
   const { token, setToken, clearToken } = useTokenStore();
-  const [completedDecks, setCompletedDecks] = useState();
-  const [dueDecks, setDueDecks] = useState();
+
+  const [completedDecks, setCompletedDecks] = useState(null);
+  const [dueDecks, setDueDecks] = useState(null);
+
   const [completedPercent, setCompletedPercent] = useState(0);
   const [profile, setProfile] = useState({
     usename: "",
@@ -40,35 +42,25 @@ function App() {
       setToken(localToken);
     }
   }, []);
+
+  // fetch profile data:
+  const fetch_profile = async () => {
+    try {
+      const { data: profiledata } = await getProfile(token);
+      setProfile({
+        username: profiledata.username,
+        email: profiledata.email,
+        image: profiledata.profile_img,
+        first_name: profiledata.first_name,
+        last_name: profiledata.last_name,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
-    const fechData = async () => {
-      try {
-        const { data: profiledata } = await getprofile(token);
-        const { data: decksdata } = await getDeckComplete(token);
-        setCompletedDecks(decksdata.completed_decks);
-        setDueDecks(decksdata.due_decks);
-
-        // calculate percent of completed decks:
-        const alldeck = decksdata.due_decks + decksdata.completed_decks;
-        setCompletedPercent(
-          (decksdata.completed_decks / (alldeck ? alldeck : 1)) * 100
-        );
-
-        setCompletedPercent();
-        console.log(decksdata);
-
-        setProfile({
-          username: profiledata.username,
-          email: profiledata.email,
-          image: profiledata.profile_img,
-          first_name: profiledata.first_name,
-          last_name: profiledata.last_name,
-        });
-      } catch {
-        console.log("error");
-      }
-    };
-    fechData();
+    fetch_profile();
   }, [token]);
 
   const openCloseMenu = () => {
@@ -83,7 +75,8 @@ function App() {
               profile: profile,
               dueDecks: dueDecks,
               completedDecks: completedDecks,
-              decks_percent: completedPercent,
+              setCompletedDecks: setCompletedDecks,
+              setDueDecks: setDueDecks,
             }}
           >
             <Routes>
