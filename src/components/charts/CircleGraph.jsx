@@ -49,7 +49,7 @@ export default function CircleGraph({
           textAnchor="middle"
           className={styles.text}
         >
-          {percent}%
+          {Math.floor(percent)}%
         </text>
       </svg>
     </div>

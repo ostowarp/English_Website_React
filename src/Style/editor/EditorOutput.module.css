@@ -1,0 +1,41 @@
+.editor {
+  font-family: var(--rooney-medium);
+  font-size: 1.6rem;
+  min-height: 400px;
+}
+.editor h2 {
+  font-size: 2.4rem;
+  font-family: var(--rooney-Heavy);
+}
+.editor h3 {
+  font-size: 2rem;
+  font-family: var(--rooney-Heavy);
+}
+.editor h4 {
+  font-size: 1.6rem;
+  font-family: var(--rooney-Heavy);
+}
+.editor table {
+  border-collapse: collapse;
+}
+
+.editor table td,
+tr {
+  text-align: center;
+  padding: 0.4rem;
+  border: 1px solid black;
+}
+
+.editor .ck-reset_all {
+  filter: blur(10) !important;
+}
+
+.editor blockquote {
+  border-left: 5px solid #3498db !important;
+  margin: 20px 0;
+  padding: 10px 20px;
+  font-style: italic;
+  background-color: #f9f9f9;
+  border-radius: 0 1.4rem 1.4rem 0;
+  color: #353535;
+}

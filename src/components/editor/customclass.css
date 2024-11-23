@@ -1,0 +1,36 @@
+.ck-sticky-panel__content {
+  border-radius: 0.8rem !important;
+}
+.ck-toolbar {
+  background: var(--gray-bg) !important;
+  border: 1px solid black !important;
+  border-radius: 0.8rem !important;
+}
+.ck-toolbar hr {
+  color: blue !important;
+}
+.ck-content {
+  background-color: rgba(0, 0, 0, 0) !important;
+  background: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ck-sticky-panel__content {
+  background: white !important;
+  position: static !important;
+  font-family: var(--rooney-Heavy);
+}
+
+.ck-powered-by {
+  display: none;
+}
+
+
+.ck-sticky-panel__placeholder{
+ height: 0 !important;
+}
+/* .ck-sticky-panel__content_sticky{
+  top:6rem !important;
+  display: none !important;
+} */

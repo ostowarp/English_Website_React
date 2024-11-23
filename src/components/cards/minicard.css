@@ -1,0 +1,25 @@
+.image {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: center;
+}
+.image img {
+  max-width: 150px;
+  align-items: center;
+  border-radius: 0.8rem;
+  height: auto;
+}
+p img {
+  border-radius: 0.8rem;
+}
+.image-style-side {
+  padding-left: 10px;
+  float: right;
+  justify-content: flex-end;
+}
+
+.image-style-side img {
+  max-width: 100px;
+}

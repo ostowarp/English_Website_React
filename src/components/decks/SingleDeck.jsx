@@ -1,5 +1,5 @@
 // import components:
-import { SearchBar, CompletedCard, Confirm } from "../";
+import { SearchBar, CompletedCard, Confirm, Cards } from "../";
 import Grid from "@mui/material/Grid2";
 import FlagIcon from "react-world-flags";
 
@@ -44,17 +44,21 @@ export default function SingleDeck() {
   const [deck, setDeck] = useState();
   const { token } = useTokenStore();
   const { id } = useParams("id");
-  useEffect(() => {
-    const fetchDeck = async () => {
-      try {
-        const { data: deckdata } = await getDeck(token, id);
-        setDeck(deckdata);
-      } catch {
-        console.log("error");
-      }
-    };
-    fetchDeck();
-  }, [token]);
+  const [update, setUpdate] = useState(false);
+
+  const fetchDeck = async () => {
+    try {
+      const { data: deckdata } = await getDeck(token, id);
+      setDeck(deckdata);
+    } catch {
+      console.log("error");
+    }
+  };
+
+  // handle update deck:
+  const handleUpdate = () => {
+    setUpdate(!update);
+  };
 
   // Handle Delete:
   const handleDeleteDeck = async () => {
@@ -71,6 +75,14 @@ export default function SingleDeck() {
   const handleconfirm = () => {
     setConfirm(!confirm);
   };
+
+  useEffect(() => {
+    fetchDeck();
+  }, [token]);
+
+  useEffect(() => {
+    fetchDeck();
+  }, [update]);
 
   return (
     <>
@@ -164,7 +176,10 @@ export default function SingleDeck() {
           ""
         )}
         <Grid size={12} order={3}>
-          dsafasddfjkaskdfl
+          <div>
+            {" "}
+            <Cards update={update} handleUpdateCards={() => handleUpdate()}></Cards>
+          </div>
         </Grid>
       </Grid>
     </>

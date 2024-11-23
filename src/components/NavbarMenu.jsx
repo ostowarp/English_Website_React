@@ -4,6 +4,7 @@ import styles from "../Style/NavbarMenu.module.css";
 
 // import icons:
 import menuicon from "../assets/icons/menu.svg";
+import logo from "../assets/logo.png";
 
 const NavbarMenu = ({ li, openClose, window }) => {
   return (
@@ -15,7 +16,7 @@ const NavbarMenu = ({ li, openClose, window }) => {
       }}
     >
       <Link to={"/dashboard"}>
-        <img className={styles.logo} src="./logo.png" alt="" />
+        <img className={styles.logo} src={logo} alt="logo" />
       </Link>
       <ul className={styles.items}>
         {li.map((item, i) => (

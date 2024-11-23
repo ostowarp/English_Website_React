@@ -13,7 +13,6 @@ export default function CompletedPercent() {
   const alldeck = dueDecks + completedDecks;
   const percent = (completedDecks / (alldeck ? alldeck : 1)) * 100;
 
-  console.log(Math.floor((completedDecks / (alldeck ? alldeck : 1)) * 100));
 
   return (
     <div className={styles.container}>

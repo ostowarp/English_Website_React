@@ -1,0 +1,47 @@
+.title {
+  font-size: 2.4rem;
+  font-family: var(--rooney-Heavy);
+}
+
+.cards {
+  margin-bottom: 2.2rem;
+  margin-top: 1.2rem;
+}
+
+
+
+.addcard {
+  position: relative;
+  height: 36rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.8rem;
+  background-color: var(--gray-bg);
+  border-radius: 1.4rem;
+  border: 1px solid var(--gray-hard);
+  transition: 0.3s;
+}
+.handicon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.addcard h3 {
+  margin-top: 4.2rem;
+  font-family: var(--rooney-Heavy);
+  width: 15rem;
+  text-align: center;
+  font-size: 3rem;
+}
+.addicon {
+  cursor: pointer;
+
+  width: 8rem;
+  filter: brightness(0);
+}
+
+
+.addcard:hover {
+  box-shadow: 0px 3px 69px rgba(0, 0, 0, 0.1);
+}

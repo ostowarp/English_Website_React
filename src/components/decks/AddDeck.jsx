@@ -11,7 +11,6 @@ import addicon from "../../assets/icons/add.svg";
 // import components:
 import { CustomCheckBox } from "../";
 import Grid from "@mui/material/Grid2";
-import FlagIcon from "react-world-flags";
 
 // import golobal state:
 import useTokenStore from "../../store/useTokenstate";
@@ -45,11 +44,10 @@ export default function AddDeck({ handleclose }) {
     try {
       const { data: categoriesdata } = await getCategories(token);
       setCategories(categoriesdata);
-      console.log("ljaljlfja;ljf;lja;ljf;jads;ljfl;asjd;lfj;asdjf");
 
       console.log(categoriesdata);
     } catch (error) {
-      console.log("EEEEEEEEROOOOOOOOORRRRRRRR");
+      console.log(error.message);
     }
   };
 

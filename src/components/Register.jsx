@@ -139,7 +139,7 @@ export default function Register() {
             slidesPerView={1}
             ref={swiperRef}
             effect={"flip"}
-            style={{ minWidth: "386px", width: "34vw" }}
+            style={{ minWidth: "38.6rem", width: "34vw" }}
             modules={[EffectFlip, Navigation]}
             allowTouchMove={false}
             onSwiper={(swiper) => (swiperRef.current = swiper)} // تنظیم مرجع برای Swiper

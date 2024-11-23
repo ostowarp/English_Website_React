@@ -1,0 +1,120 @@
+.card {
+  cursor: pointer;
+  height: 36rem;
+  background-color: var(--gray-bg);
+  border-radius: 1.4rem;
+  border: 1px solid var(--gray-hard);
+  transition: 0.3s;
+  padding: 1.4rem 0.8rem;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card:hover {
+  box-shadow: 0px 3px 69px rgba(0, 0, 0, 0.1);
+}
+
+.cardname {
+  position: absolute;
+  top: 1rem;
+  font-size: 1.4rem;
+  font-family: var(--rooney-Heavy);
+}
+
+.editor {
+  font-family: var(--rooney-medium);
+  font-size: 1.4rem;
+  height: 100% !important;
+  width: 100%;
+  text-wrap: wrap;
+  overflow: hidden;
+}
+.editor p {
+  /* Break word: */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-wrap: wrap;
+  width: 100%;
+}
+.editor h2 {
+  /* Break word: */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 100%;
+  text-wrap: wrap;
+  font-size: 2rem;
+  font-family: var(--rooney-Heavy);
+}
+.editor h3 {
+  /* Break word: */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 100%;
+  text-wrap: wrap;
+  font-size: 1.6rem;
+  font-family: var(--rooney-Heavy);
+}
+.editor h4 {
+  /* Break word: */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 100%;
+  text-wrap: wrap;
+  font-size: 1.4rem;
+  font-family: var(--rooney-Heavy);
+}
+.editor table {
+  /* Break word: */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 100%;
+  text-wrap: wrap;
+  border-collapse: collapse;
+}
+
+.editor figcaption {
+  font-size: 1.2rem;
+}
+
+.editor table td,
+tr {
+  text-align: center;
+  padding: 0.4rem;
+  border: 1px solid black;
+}
+
+.editor .ck-reset_all {
+  filter: blur(10) !important;
+}
+
+.editor blockquote {
+  border-left: 5px solid #3498db !important;
+  margin: 20px 0;
+  padding: 6px 12px;
+  font-style: italic;
+  background-color: #f9f9f9;
+  border-radius: 0 1.4rem 1.4rem 0;
+  color: #353535;
+}
+
+.deleteicon {
+  width: 2.4rem;
+  position: absolute;
+  right: 0.4rem;
+  top: 0.4rem;
+  transition: 0.2s;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.card:hover .deleteicon {
+  opacity: 100;
+}

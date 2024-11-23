@@ -104,6 +104,43 @@ export const deleteDeck = (token, deckId) => {
 };
 
 // -------------------------------
+// FlashCard Management APIs
+// -------------------------------
+
+// (POST) new card in specific deck:
+export const createFlashCard = (token, deckId, newCard) => {
+  const url = `/decks/${deckId}/flashcard/`;
+  return api.post(url, newCard, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+// (GET) card in specific deck:
+export const getFlashCards = (token, deckId, all) => {
+  const url = all ? `/decks/${deckId}/cards/all` : `/decks/${deckId}/cards`;
+  return api.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// (REVIEW:POST) and (DELETE) flashcard:
+export const review_delete_flashcard = (token, cardId, review) => {
+  const url = `/flashcards/${cardId}/`;
+  if (review) {
+    console.log(review);
+  } else {
+    return api.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+};
+
+// -------------------------------
 // Category Management APIs
 // -------------------------------
 
