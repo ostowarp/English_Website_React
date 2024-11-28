@@ -28,7 +28,6 @@ import useTokenStore from "../../store/useTokenstate";
 // import servicess:
 import { getDecks } from "../../servicess";
 
-
 export default function DeckSlider() {
   const [loading, setLoading] = useState(false);
   const serverUrl = getServerUrl();
@@ -41,6 +40,7 @@ export default function DeckSlider() {
         const { data: dueDecksData } = await getDecks(token, false);
         if (dueDecksData.length > 0) {
           setDueDecks(dueDecksData);
+          console.log(dueDecksData);
         } else {
           // اگر داده‌ای برای dueDecks وجود نداشته باشد، ۵ عدد اول از allDecks را بگیرید
           const { data: dueDecksData2 } = await getDecks(token, true);
@@ -98,7 +98,7 @@ export default function DeckSlider() {
                   language={due.language}
                   name={due.name}
                   description={due.description || due.language}
-                  percent={due.percent_deck}
+                  percent={due.completed_cards}
                 />
               </SwiperSlide>
             ))}

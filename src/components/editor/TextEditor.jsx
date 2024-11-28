@@ -10,7 +10,7 @@ import styles from "../../Style/editor/TextEditor.module.css";
 import "./customclass.css";
 import { useParams } from "react-router-dom";
 
-const TextEditor = ({ handleEditorChange }) => {
+const TextEditor = ({ handleEditorChange, data, view }) => {
   const deckId = useParams();
   const url = getServerUrl();
 
@@ -22,6 +22,7 @@ const TextEditor = ({ handleEditorChange }) => {
       <CKEditor
         editor={ClassicEditor}
         className={styles.customEditor}
+        data={view ? data : ""}
         config={{
           placeholder: "wirte here....",
 
@@ -79,7 +80,7 @@ const TextEditor = ({ handleEditorChange }) => {
         }}
         onChange={handleEditorChange}
       />
-      
+
       {/* <div style={{ marginTop: "20px" }}>
         <h3>Output:</h3>
         <div dangerouslySetInnerHTML={{ __html: editorContent }} />

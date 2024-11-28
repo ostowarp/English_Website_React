@@ -22,10 +22,17 @@ import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // ........ import Servicess ........
-import { createFlashCard } from "../../servicess";
+import { createFlashCard, updateFlashCard } from "../../servicess";
 import useTokenStore from "../../store/useTokenstate";
 
-export default function AddCard({ handleAddCard, handleUpdate }) {
+export default function AddCard({
+  handleAddCard,
+  handleUpdate,
+  cardData,
+  setCardData,
+  view,
+}) {
+  const [card, setCard] = useState(view ? cardData : "");
   const { token } = useTokenStore();
   const [frontContent, setFrontContent] = useState("");
   const [backContent, setBackContent] = useState("");
@@ -35,10 +42,17 @@ export default function AddCard({ handleAddCard, handleUpdate }) {
 
   const handleNewCard = async () => {
     try {
-      const { data: carddata } = await createFlashCard(token, deckId, {
-        front: frontContent,
-        back: backContent,
-      });
+      if (view) {
+        const { data: carddata } = await updateFlashCard(token, card.id, {
+          front: card.front,
+          back: card.back,
+        });
+      } else {
+        const { data: carddata } = await createFlashCard(token, deckId, {
+          front: frontContent,
+          back: backContent,
+        });
+      }
       handleUpdate(); // for render cards
       handleAddCard(); //for close add card
     } catch (error) {
@@ -49,11 +63,19 @@ export default function AddCard({ handleAddCard, handleUpdate }) {
   // handle change front and back:
   const handleBackChange = (event, editor) => {
     const data = editor.getData();
-    setBackContent(data);
+    if (view) {
+      setCard({ ...card, back: data });
+    } else {
+      setBackContent(data);
+    }
   };
   const handleFrontChange = (event, editor) => {
     const data = editor.getData();
-    setFrontContent(data);
+    if (view) {
+      setCard({ ...card, front: data });
+    } else {
+      setFrontContent(data);
+    }
   };
   return (
     <>
@@ -92,8 +114,21 @@ export default function AddCard({ handleAddCard, handleUpdate }) {
                 <img src={arrowicon} alt="" />
               </span>
               <div className={styles.content}>
-                <TextEditor handleEditorChange={handleFrontChange}></TextEditor>
+                <TextEditor
+                  data={view ? cardData.front : ""}
+                  view={view}
+                  handleEditorChange={handleFrontChange}
+                ></TextEditor>
               </div>
+              <button className={styles.addbtn} onClick={() => handleNewCard()}>
+                {view ? (
+                  "Update Card"
+                ) : (
+                  <>
+                    <img src={addicon}></img> Create Card
+                  </>
+                )}
+              </button>
             </div>
           </SwiperSlide>
           <SwiperSlide>
@@ -113,7 +148,11 @@ export default function AddCard({ handleAddCard, handleUpdate }) {
               />
 
               <div className={styles.content}>
-                <TextEditor handleEditorChange={handleBackChange}></TextEditor>
+                <TextEditor
+                  data={view ? cardData.back : ""}
+                  view={view}
+                  handleEditorChange={handleBackChange}
+                ></TextEditor>
               </div>
 
               <span
@@ -125,7 +164,13 @@ export default function AddCard({ handleAddCard, handleUpdate }) {
                 <p>Front</p>
               </span>
               <button className={styles.addbtn} onClick={() => handleNewCard()}>
-                <img src={addicon}></img> Create Card
+                {view ? (
+                  "Update Card"
+                ) : (
+                  <>
+                    <img src={addicon}></img> Create Card
+                  </>
+                )}
               </button>
             </div>
           </SwiperSlide>

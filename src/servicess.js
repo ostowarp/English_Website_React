@@ -126,18 +126,34 @@ export const getFlashCards = (token, deckId, all) => {
   });
 };
 
-// (REVIEW:POST) and (DELETE) flashcard:
-export const review_delete_flashcard = (token, cardId, review) => {
+// (DELETE) flashcard:
+export const delete_flashcard = (token, cardId) => {
   const url = `/flashcards/${cardId}/`;
-  if (review) {
-    console.log(review);
-  } else {
-    return api.delete(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  }
+  return api.delete(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// (Update:PUT) specific flashcard by id:
+export const updateFlashCard = (token, cardId, card) => {
+  const url = `/flashcards/${cardId}/`;
+  return api.put(url, card, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// (Review:POST) specific flashcard:
+export const review_flashcard = (token, cardId, review) => {
+  const url = `/flashcards/${cardId}/`;
+  return api.post(url, review, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 // -------------------------------

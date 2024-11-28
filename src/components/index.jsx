@@ -50,6 +50,8 @@ export { default as ProfilePannel } from "./ProfilePannel";
 export { default as Cards } from "./cards/Cards";
 export { default as AddCard } from "./cards/AddCard";
 export { default as MiniCard } from "./cards/MiniCard";
+export { default as Training } from "./cards/Training";
+export { default as TrainCard } from "./cards/TrainCard";
 
 // -------------------------------------------
 // Editor Components:

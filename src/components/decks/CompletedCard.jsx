@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid2";
 // import styles:
 import styles from "../../Style/decks/CompletedCard.module.css";
 
-export default function CompletedCard({ percent }) {
+export default function CompletedCard({ percent, setStartTraining }) {
   return (
     <>
       <Grid
@@ -26,6 +26,7 @@ export default function CompletedCard({ percent }) {
           ></CircleGraph>
         </Grid>
         <Grid
+          onClick={() => setStartTraining()}
           size={{ xl: 6, lg: 6, md: 6, xs: 12 }}
           className={styles.completedbg}
           style={{ backgroundColor: "black", cursor: "pointer" }}

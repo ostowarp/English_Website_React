@@ -1,5 +1,5 @@
 // import components:
-import { SearchBar, CompletedCard, Confirm, Cards } from "../";
+import { SearchBar, CompletedCard, Confirm, Cards, Training } from "../";
 import Grid from "@mui/material/Grid2";
 import FlagIcon from "react-world-flags";
 
@@ -39,6 +39,7 @@ const getFlagByLabel = (label) => {
 };
 
 export default function SingleDeck() {
+  const [startTraining, setStartTraining] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const navigate = useNavigate();
   const [deck, setDeck] = useState();
@@ -86,6 +87,18 @@ export default function SingleDeck() {
 
   return (
     <>
+      {startTraining ? (
+        <>
+          <Training
+            setStartTraining={() => {
+              setStartTraining(false);
+              handleUpdate();
+            }}
+          ></Training>
+        </>
+      ) : (
+        ""
+      )}
       {confirm ? (
         <Confirm
           close={() => handleconfirm()}
@@ -169,7 +182,10 @@ export default function SingleDeck() {
               order={{ xl: 2, lg: 2, md: 1, xs: 1 }}
             >
               <SearchBar></SearchBar>
-              <CompletedCard percent={deck.completed_cards}></CompletedCard>
+              <CompletedCard
+                setStartTraining={() => setStartTraining(true)}
+                percent={deck.completed_cards}
+              ></CompletedCard>
             </Grid>
           </>
         ) : (
@@ -178,7 +194,10 @@ export default function SingleDeck() {
         <Grid size={12} order={3}>
           <div>
             {" "}
-            <Cards update={update} handleUpdateCards={() => handleUpdate()}></Cards>
+            <Cards
+              update={update}
+              handleUpdateCards={() => handleUpdate()}
+            ></Cards>
           </div>
         </Grid>
       </Grid>

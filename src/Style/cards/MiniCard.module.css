@@ -108,11 +108,28 @@ tr {
 .deleteicon {
   width: 2.4rem;
   position: absolute;
+  top: 0.6rem;
   right: 0.4rem;
-  top: 0.4rem;
   transition: 0.2s;
   opacity: 0;
   cursor: pointer;
+}
+.nexttime {
+  position: absolute;
+  top: 1rem;
+  left: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.nexttime p {
+  font-size: 1.4rem;
+  font-family: var(--nunito-medium);
+}
+.timeicon {
+  width: 2rem;
+  color: red !important;
+  fill: red;
 }
 
 .card:hover .deleteicon {

@@ -1,25 +1,26 @@
-.editormini .image {
+.editortrain .image {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   align-items: center;
   justify-content: center;
 }
-.editormini .image img {
-  max-width: 200px;
+.editortrain .image img {
+  max-width: 100%;
   align-items: center;
   border-radius: 0.8rem;
   height: auto;
 }
-.editormini p img {
+.editortrain p img {
   border-radius: 0.8rem;
 }
-.editormini .image-style-side {
+.editortrain .image-style-side {
+  max-width: 17.3rem;
   padding-left: 10px;
   float: right;
   justify-content: flex-end;
 }
-
-.editormini .image-style-side img {
-  max-width: 100px;
-}
+/* 
+.editortrain .image-style-side img {
+  max-width: 50%;
+} */
