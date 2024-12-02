@@ -19,7 +19,34 @@ export default function ProfilePannel() {
           className={styles.profile}
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
           order={2}
-        ></Grid>
+        >
+          <div className={styles.channel_art}>
+            <img src="" alt="Profile Image" className={styles.profile_img} />
+          </div>
+          <div className={styles.profiel_details}>
+            <p>ostowar.p.a</p>
+            <h4>pooria ostowar</h4>
+            <p>ostowar.p.a@gmail.com</p>
+          </div>
+          <div className={styles.profile_counts}>
+            <span>
+              <h4>14</h4>
+              <p>Decks</p>
+            </span>
+            <span>
+              <h4>12</h4>
+              <p>Cards</p>
+            </span>
+            <span>
+              <h4>12</h4>
+              <p>Followers</p>
+            </span>
+          </div>
+          <div className={styles.profile_buttons}>
+            <button>Edit Profile</button>
+            <button>Profile Settings</button>
+          </div>
+        </Grid>
         <Grid
           item
           spacing={{ xl: 4, lg: 3, md: 2, xs: 2 }}

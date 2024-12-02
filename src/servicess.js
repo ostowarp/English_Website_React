@@ -63,6 +63,16 @@ export const createDeck = (token, newDeck) => {
   });
 };
 
+// (Update:PUT) Deck:
+export const updateDeck = (token, deckInfo, deckid) => {
+  const url = `/decks/${deckid}/`;
+  return api.put(url, deckInfo, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 // get Deck complete number:
 export const getDeckComplete = (token) => {
   const url = "/completed/decks/";
@@ -150,6 +160,16 @@ export const updateFlashCard = (token, cardId, card) => {
 export const review_flashcard = (token, cardId, review) => {
   const url = `/flashcards/${cardId}/`;
   return api.post(url, review, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// (get) chart data:
+export const get_chart_data = (token, month) => {
+  const url = month ? "/chartdata/month/" : "/chartdata/week/";
+  return api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -4,7 +4,6 @@ import { TrainCard } from "../";
 // ........ import Style ........
 import styles from "../../Style/cards/AddCard.module.css";
 
-
 // ........ import Icons ........
 import closeicon from "../../assets/icons/close.svg";
 import arrowicon from "../../assets/icons/arrow2.svg";
@@ -26,7 +25,7 @@ import { useParams } from "react-router-dom";
 import { getFlashCards } from "../../servicess";
 import useTokenStore from "../../store/useTokenstate";
 
-export default function Training({ setStartTraining , update }) {
+export default function Training({ setStartTraining, update }) {
   const { token } = useTokenStore();
   const deckId = useParams().id;
   const [dueCards, setDueCards] = useState([]);
@@ -69,12 +68,19 @@ export default function Training({ setStartTraining , update }) {
                     <TrainCard
                       card={card}
                       nextCard={() => {
-                        swiperRef.current?.slideNext();
+                        if (swiperRef.current?.isEnd) {
+                          setStartTraining(false);
+                        } else {
+                          swiperRef.current?.slideNext();
+                        }
                       }}
                       prevCard={() => {
                         swiperRef.current?.slidePrev();
                       }}
-                      setStartTraining={() => setStartTraining()}
+                      setStartTraining={() => setStartTraining(false)}
+                      lastCard={() => {
+                        return swiperRef?.current.isEnd;
+                      }}
                     ></TrainCard>
                   </SwiperSlide>
                 );

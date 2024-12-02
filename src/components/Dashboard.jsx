@@ -61,7 +61,7 @@ const Dashboard = () => {
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
           order={{ xl: 3, lg: 3, md: 2, xs: 2 }}
         >
-          <LineChart />
+          <LineChart chartdata={[2,3,4,5,6,7,20]} />
         </Grid>
       </Grid>
     </>

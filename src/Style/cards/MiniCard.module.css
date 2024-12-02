@@ -23,6 +23,9 @@
   font-size: 1.4rem;
   font-family: var(--rooney-Heavy);
 }
+.cardname span {
+  font-family: var(--nunito-extrabold);
+}
 
 .editor {
   font-family: var(--rooney-medium);

@@ -24,7 +24,7 @@ const TextEditor = ({ handleEditorChange, data, view }) => {
         className={styles.customEditor}
         data={view ? data : ""}
         config={{
-          placeholder: "wirte here....",
+          placeholder: "write here....",
 
           alignment: {
             options: [

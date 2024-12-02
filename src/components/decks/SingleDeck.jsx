@@ -1,5 +1,12 @@
 // import components:
-import { SearchBar, CompletedCard, Confirm, Cards, Training } from "../";
+import {
+  SearchBar,
+  CompletedCard,
+  Confirm,
+  Cards,
+  Training,
+  AddDeck,
+} from "../";
 import Grid from "@mui/material/Grid2";
 import FlagIcon from "react-world-flags";
 
@@ -18,19 +25,9 @@ import deleteicon from "../../assets/icons/delete.svg";
 
 // import golobal state:
 import useTokenStore from "../../store/useTokenstate";
+// import languages:
+import { languages } from "../../contexts/data";
 
-const languages = [
-  { label: "Afrikaans", flag: "ZA" },
-  { label: "Arabic", flag: "SA" },
-  { label: "Persian", flag: "IR" },
-  { label: "English", flag: "GB" },
-  { label: "French", flag: "FR" },
-  { label: "Spanish", flag: "ES" },
-  { label: "German", flag: "DE" },
-  { label: "Russian", flag: "RU" },
-  { label: "Chinese", flag: "CN" },
-  { label: "Japanese", flag: "JP" },
-];
 const getFlagByLabel = (label) => {
   const language = languages.find(
     (lang) => lang.label.toLowerCase() === label.toLowerCase()
@@ -46,6 +43,7 @@ export default function SingleDeck() {
   const { token } = useTokenStore();
   const { id } = useParams("id");
   const [update, setUpdate] = useState(false);
+  const [updateDeck, setUpdateDeck] = useState(false);
 
   const fetchDeck = async () => {
     try {
@@ -87,6 +85,18 @@ export default function SingleDeck() {
 
   return (
     <>
+      {updateDeck ? (
+        <AddDeck
+          handleClose={() => {
+            setUpdateDeck(false);
+          }}
+          handleUpdate={() => handleUpdate()}
+          isUpdate={true}
+          deckData={deck}
+        />
+      ) : (
+        ""
+      )}
       {startTraining ? (
         <>
           <Training
@@ -137,7 +147,12 @@ export default function SingleDeck() {
                   </span>
                 </span>
                 <span className={styles.editdelete}>
-                  <img src={editicon} alt="edit" />
+                  <img
+                    onClick={() => setUpdateDeck(true)}
+                    src={editicon}
+                    alt="edit"
+                    style={{ cursor: "pointer" }}
+                  />
                   <img
                     onClick={() => handleconfirm()}
                     src={deleteicon}

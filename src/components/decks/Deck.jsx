@@ -10,18 +10,10 @@ import styles from "../../Style/decks/Deck.module.css";
 import { CircleGraph, LineGraph, BlackButton } from "../";
 
 import { useLocation } from "react-router-dom";
-const languages = [
-  { label: "Afrikaans", flag: "ZA" },
-  { label: "Arabic", flag: "SA" },
-  { label: "Persian", flag: "IR" },
-  { label: "English", flag: "GB" },
-  { label: "French", flag: "FR" },
-  { label: "Spanish", flag: "ES" },
-  { label: "German", flag: "DE" },
-  { label: "Russian", flag: "RU" },
-  { label: "Chinese", flag: "CN" },
-  { label: "Japanese", flag: "JP" },
-];
+
+// import languages:
+import { languages } from "../../contexts/data";
+
 const getFlagByLabel = (label) => {
   const language = languages.find(
     (lang) => lang.label.toLowerCase() === label.toLowerCase()
@@ -63,7 +55,6 @@ export default function Deck({
               ? styles.image
               : styles.image2
           }
-          
           code={flag}
         />
 

@@ -64,7 +64,7 @@ export default function MiniCard({
           className={styles.cardname}
           // style={{ color: card.status ? "green" : "var(--red-low)" }}
         >
-          - CARD ({number + 1}) -
+          - CARD <span>({number + 1})</span> -
         </p>
         <div
           onClick={() => handleViewCard()}

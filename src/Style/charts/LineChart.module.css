@@ -24,6 +24,7 @@
 }
 
 .filters h3 {
+  cursor: pointer;
   font-size: 1.6rem;
   font-family: var(--rooney-Heavy);
 }

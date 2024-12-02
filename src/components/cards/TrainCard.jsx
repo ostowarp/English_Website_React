@@ -34,6 +34,7 @@ export default function TrainCard({
   setStartTraining,
   prevCard,
   nextCard,
+  lastCard,
 }) {
   const { token } = useTokenStore();
   const reviewCard = async (reviewRate) => {

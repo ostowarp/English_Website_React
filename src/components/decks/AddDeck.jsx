@@ -1,5 +1,13 @@
 // import servicess:
-import { getCategories, addCategory, createDeck } from "../../servicess";
+import {
+  getCategories,
+  addCategory,
+  createDeck,
+  updateDeck,
+} from "../../servicess";
+
+// import languages:
+import { languages } from "../../contexts/data";
 
 import { useEffect, useRef, useState } from "react";
 import styles from "../../Style/decks/AddDeck.module.css";
@@ -16,50 +24,56 @@ import Grid from "@mui/material/Grid2";
 import useTokenStore from "../../store/useTokenstate";
 import { useNavigate } from "react-router-dom";
 
-export default function AddDeck({ handleclose }) {
+export default function AddDeck({
+  handleClose,
+  isUpdate,
+  deckData,
+  handleUpdate,
+}) {
   const { token } = useTokenStore();
-  const [addInput, setAddInput] = useState(false);
+  const [isAddInputVisible, setAddInputVisible] = useState(false);
   const inputRef = useRef(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState({ name: "" });
-  const [added, setAdded] = useState(false);
+  const [isAdded, setAdded] = useState(false);
   const navigate = useNavigate();
 
-  const languages = [
-    { label: "Afrikaans", flag: "ZA" },
-    { label: "Arabic", flag: "SA" },
-    { label: "Persian", flag: "IR" },
-    { label: "English", flag: "GB" },
-    { label: "French", flag: "FR" },
-    { label: "Spanish", flag: "ES" },
-    { label: "German", flag: "DE" },
-    { label: "Russian", flag: "RU" },
-    { label: "Chinese", flag: "CN" },
-    { label: "Japanese", flag: "JP" },
-  ];
+  // Load categories and set initial values if isUpdate is true
+  useEffect(() => {
+    const loadInitialData = async () => {
+      if (isUpdate && deckData) {
+        setSelectedCategories(deckData.categories.map((cat) => cat.name));
+        setNewCategory({ name: "" });
+      }
+    };
+    loadInitialData();
+  }, [isUpdate, deckData]);
 
-  //   Note loade categories:
+  // Load categories
   const loadCategories = async () => {
     try {
       const { data: categoriesdata } = await getCategories(token);
       setCategories(categoriesdata);
-
-      console.log(categoriesdata);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  //   NOTE add new category
+  // Add new category
   const handleAddCategory = async () => {
     if (!newCategory.name.trim()) return; // بررسی مقدار خالی
 
     try {
-      const { data: addedCategory } = await addCategory(token, newCategory);
-      setNewCategory(""); // پاک کردن اینپوت
-      setAdded(!added);
-      setAddInput(false); // بستن اینپوت
+      const response = await addCategory(token, newCategory);
+      const addedCategory = response?.data;
+      if (addedCategory) {
+        setNewCategory("");
+        setAdded(!isAdded);
+        setAddInputVisible(false);
+      } else {
+        console.error("No data returned from addCategory");
+      }
     } catch (error) {
       console.log("Error adding category", error);
     }
@@ -70,10 +84,10 @@ export default function AddDeck({ handleclose }) {
   }, []);
   useEffect(() => {
     loadCategories();
-  }, [added]);
+  }, [isAdded]);
 
   const handleCheckboxChange = (label) => {
-    setSelectedOptions((prev) =>
+    setSelectedCategories((prev) =>
       prev.includes(label)
         ? prev.filter((item) => item !== label)
         : [...prev, label]
@@ -88,39 +102,60 @@ export default function AddDeck({ handleclose }) {
   };
 
   const handleAddInput = () => {
-    setAddInput(true);
+    setAddInputVisible(true);
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
   };
 
-  // NOTE create deck:
+  // Create or Update deck
   const handleCreateDeck = (e) => {
-    e.preventDefault(); // جلوگیری از رفتار پیش‌فرض فرم
+    e.preventDefault(); // Prevent default form submission
 
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const deckInfo = Object.fromEntries(formData);
 
-    // default value for name and description:
-    data.name = data.name === "" ? "New Deck" : data.name;
-    data.description = data.description === "" ? "..." : data.description;
+    // Default values for name and description
+    deckInfo.name = deckInfo.name === "" ? "New Deck" : deckInfo.name;
+    deckInfo.description =
+      deckInfo.description === "" ? "..." : deckInfo.description;
 
-    // add categories:
-    data.category_ids = categories
-      .filter((cat) => selectedOptions.includes(cat.name))
+    // Add categories
+    deckInfo.category_ids = categories
+      .filter((cat) => selectedCategories.includes(cat.name))
       .map((cat) => cat.id);
 
-    e.preventDefault(); // جلوگیری از رفتار فرم
     const createNewDeck = async () => {
       try {
-        const { data: deckData } = await createDeck(token, data);
-        navigate(`/decks/${deckData.id}`);
-        handleclose();
+        const { data: newdeckdata } = await createDeck(token, deckInfo);
+        console.log(newdeckdata);
+
+        navigate(`/decks/${newdeckdata.id}`);
+        handleClose();
       } catch (error) {
         console.log(error.message);
       }
     };
-    createNewDeck();
+
+    const updateExistingDeck = async () => {
+      try {
+        const { data: updatedeckdata } = await updateDeck(
+          token,
+          deckInfo,
+          deckData.id
+        );
+        handleUpdate();
+        handleClose();
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    if (isUpdate) {
+      updateExistingDeck();
+    } else {
+      createNewDeck();
+    }
   };
 
   return (
@@ -143,10 +178,10 @@ export default function AddDeck({ handleclose }) {
                       fontFamily: "var(--rooney-Heavy)",
                     }}
                   >
-                    New Deck
+                    {isUpdate ? "Edit Deck" : "New Deck"}
                   </h3>
                   <img
-                    onClick={() => handleclose()}
+                    onClick={() => handleClose()}
                     src={closeicon}
                     alt="close"
                     style={{ cursor: "pointer" }}
@@ -161,20 +196,30 @@ export default function AddDeck({ handleclose }) {
                     type="text"
                     className={styles.input}
                     placeholder="Name"
+                    defaultValue={isUpdate ? deckData?.name : ""}
                   />
                 </Grid>
                 <Grid
                   style={{ position: "relative", height: "4.8rem" }}
                   size={12}
                 >
-                  <select name="language" className={styles.select}>
+                  <select
+                    name="language"
+                    className={styles.select}
+                    defaultValue={deckData?.language || ""}
+                  >
+                    {!isUpdate && (
+                      <option value="" disabled>
+                        Select a language
+                      </option>
+                    )}
                     {languages.map((lang) => (
                       <option
                         key={lang.label}
                         className={styles.option}
                         value={lang.label}
                       >
-                        <p>{lang.label}</p>
+                        {lang.label}
                       </option>
                     ))}
                   </select>
@@ -199,11 +244,12 @@ export default function AddDeck({ handleclose }) {
                     <CustomCheckBox
                       key={category.id}
                       label={category.name}
-                      checked={selectedOptions.includes(category.name)}
+                      checked={selectedCategories.includes(category.name)}
                       onChange={() => handleCheckboxChange(category.name)}
                     />
                   ))}
-                  {addInput ? (
+                  {isAddInputVisible ? (
+                    // Start of Selection
                     <>
                       <input
                         ref={inputRef}
@@ -216,7 +262,9 @@ export default function AddDeck({ handleclose }) {
                         placeholder="New category"
                       />
                       <p
-                        onClick={() => handleAddCategory()}
+                        onClick={() => {
+                          handleAddCategory();
+                        }}
                         className={styles.add}
                       >
                         Add
@@ -224,7 +272,12 @@ export default function AddDeck({ handleclose }) {
                     </>
                   ) : (
                     <span
-                      onClick={() => handleAddInput()}
+                      onClick={() => {
+                        setAddInputVisible(true);
+                        setTimeout(() => {
+                          inputRef.current.focus();
+                        }, 0);
+                      }}
                       className={styles.add}
                     >
                       <p>Add</p>
@@ -238,11 +291,16 @@ export default function AddDeck({ handleclose }) {
                     name="description"
                     className={styles.description}
                     placeholder="Description...."
+                    defaultValue={isUpdate ? deckData?.description : ""}
                   ></textarea>
                 </Grid>
               </Grid>
               <Grid container rowSpacing={1} columnSpacing={2} size={12}>
-                <input type="submit" className={styles.btn} value={"Create"} />
+                <input
+                  type="submit"
+                  className={styles.btn}
+                  value={isUpdate ? "Update" : "Create"}
+                />
               </Grid>
             </Grid>
           </form>

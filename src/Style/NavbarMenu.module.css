@@ -1,8 +1,4 @@
 .navbar {
-  position: fixed;
-  top: 2rem;
-  left: 1.4rem;
-
   height: calc(100vh - 4rem);
   border-radius: 2.4rem;
   background-color: black;
@@ -75,4 +71,5 @@
 .burger {
   margin-left: 3rem;
   margin-bottom: 1.8rem;
+  cursor: pointer;
 }
