@@ -63,9 +63,6 @@ function App() {
     fetch_profile();
   }, [token]);
 
-  const openCloseMenu = () => {
-    setWindow(!window);
-  };
   return (
     <>
       <Router>
@@ -84,7 +81,7 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <LayOut window={window} openCloseMenu={openCloseMenu} />
+                  <LayOut window={window} setWindow={setWindow} />
                 }
               >
                 <Route

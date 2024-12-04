@@ -1,3 +1,7 @@
+// import Context:
+import { ContactContext } from "../contexts/ContactContext";
+import { useContext, useState } from "react";
+
 // import components:
 import { SearchBar, LineChart } from "./";
 import Grid from "@mui/material/Grid2";
@@ -6,6 +10,25 @@ import Grid from "@mui/material/Grid2";
 import styles from "../Style/ProfilePannel.module.css";
 
 export default function ProfilePannel() {
+  const { profile } = useContext(ContactContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedProfile, setEditedProfile] = useState(profile);
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProfile({ ...editedProfile, [name]: value });
+  };
+
+  const handleSave = () => {
+    // Here you would typically update the profile in the context or send it to a server
+    console.log("Profile saved:", editedProfile);
+    setIsEditing(false);
+  };
+
   return (
     <>
       <Grid
@@ -21,12 +44,60 @@ export default function ProfilePannel() {
           order={2}
         >
           <div className={styles.channel_art}>
-            <img src="" alt="Profile Image" className={styles.profile_img} />
+            <img
+              src={editedProfile.image}
+              alt="Profile Image"
+              className={styles.profile_img}
+            />
           </div>
           <div className={styles.profiel_details}>
-            <p>ostowar.p.a</p>
-            <h4>pooria ostowar</h4>
-            <p>ostowar.p.a@gmail.com</p>
+            {isEditing ? (
+              <>
+                <input
+                  type="text"
+                  name="username"
+                  value={editedProfile.username}
+                  onChange={handleInputChange}
+                  className={styles.inputField}
+                  placeholder="Username"
+                />
+
+                <span className={styles.fullname}>
+                  <input
+                    type="text"
+                    name="first_name"
+                    value={editedProfile.first_name}
+                    onChange={handleInputChange}
+                    className={styles.inputField}
+                    placeholder="First Name"
+                  />
+                  <input
+                    type="text"
+                    name="last_name"
+                    value={editedProfile.last_name}
+                    onChange={handleInputChange}
+                    className={styles.inputField}
+                    placeholder="Last Name"
+                  />
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  value={editedProfile.email}
+                  onChange={handleInputChange}
+                  className={styles.inputField}
+                  placeholder="Email"
+                />
+              </>
+            ) : (
+              <>
+                <p>{editedProfile.username}</p>
+                <h4>
+                  {editedProfile.first_name} {editedProfile.last_name}
+                </h4>
+                <p>{editedProfile.email}</p>
+              </>
+            )}
           </div>
           <div className={styles.profile_counts}>
             <span>
@@ -43,7 +114,11 @@ export default function ProfilePannel() {
             </span>
           </div>
           <div className={styles.profile_buttons}>
-            <button>Edit Profile</button>
+            {isEditing ? (
+              <button onClick={handleSave}>Save</button>
+            ) : (
+              <button onClick={handleEditToggle}>Edit Profile</button>
+            )}
             <button>Profile Settings</button>
           </div>
         </Grid>
@@ -64,7 +139,7 @@ export default function ProfilePannel() {
         {/* <Grid size={{ xl: 6, lg: 6, md: 12, xs: 12 }} order={3}></Grid> */}
         <Grid
           size={{ xl: 6, lg: 6, md: 12, xs: 12 }}
-          order={{ xl: 3, lg: 3, md: 2, xs: 2 }}
+          order={{ xl: 3, lg: 3, md: 2, xs: 3 }}
         >
           {/* <LineChart></LineChart> */}
         </Grid>

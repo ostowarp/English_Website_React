@@ -3,7 +3,10 @@ export default function LineChart({ percent = 0, notactive }) {
   return (
     <div className={notactive ? styles.active : ""}>
       <div className={styles.all}>
-        <p className={styles.text} style={{ width: `${percent + 10}%` }}>
+        <p
+          className={styles.text}
+          style={{ width: `calc(${percent}% + 1rem)` }}
+        >
           {Math.floor(percent)}%
         </p>
         <div className={styles.container}>

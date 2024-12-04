@@ -1,22 +1,25 @@
-.all{
-    width: 15.1rem;
+.all {
+  width: 100%;
 }
-.text{
-    font-size: 1.2rem ;
-    text-align: end;
-    font-family: var(--nunito-medium);
+.text {
+  width: 0;
+  /* background-color: blue; */
+  font-size: 1.2rem;
+  text-align: end;
+  font-family: var(--nunito-medium);
 }
-.container{
-    background-color: #CCCCCC;
-    height: .6rem;
-    width: 15.1rem;
-    border-radius: 10rem;
+.container {
+  background-color: #cccccc;
+  height: 0.6rem;
+  width: 15.1rem;
+  width: calc(100%);
+  border-radius: 10rem;
 }
-.skill{
-    background-color: black;
-    border-radius: 10rem;
-    height: 100%;
+.skill {
+  background-color: black;
+  border-radius: 10rem;
+  height: 100%;
 }
-.active{
-    display: none;
+.active {
+  display: none;
 }

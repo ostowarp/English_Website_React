@@ -8,6 +8,7 @@ import styles from "../../Style/decks/Deck.module.css";
 
 // import components:
 import { CircleGraph, LineGraph, BlackButton } from "../";
+import Grid from "@mui/material/Grid2";
 
 import { useLocation } from "react-router-dom";
 
@@ -35,7 +36,8 @@ export default function Deck({
   const location = useLocation();
   const page = location.pathname ? location.pathname : "/dashboard";
   return (
-    <div
+    <Grid
+      size={page == "/decks" && !colrow ? 12 : { xs: 6, md: 6, lg: 4, xl: 4 }}
       className={
         (page == "/decks" && !colrow) || page == "/dashboard"
           ? styles.deck
@@ -75,18 +77,24 @@ export default function Deck({
         <h3>{name}</h3>
         <p>{description}</p>
       </div>
-      <LineGraph
-        percent={percent}
-        notactive={
-          (page == "/decks" && !colrow) || page == "/dashboard" ? true : false
-        }
-      />
+      <div style={{ width: "calc(100% - 2.2rem)" }}>
+        <LineGraph
+          percent={percent}
+          notactive={
+            (page == "/decks" && !colrow) || page == "/dashboard" ? true : false
+          }
+        />
+      </div>
       <div
         className={
           (page == "/decks" && colrow) || page == "/dashboard"
-            ? styles.flexrow
+            ? styles.flexrow2
             : styles.flexcol
         }
+        style={{
+          gap: page == "/dashboard" ? "2rem" : "0",
+          width: page == "/dashboard" ? "auto" : "calc(100% - 2.2rem)",
+        }}
       >
         <span
           className={`${
@@ -121,12 +129,14 @@ export default function Deck({
         percent={percent}
         notactive={page == "/decks" && !colrow ? false : true}
       />
-      <BlackButton
-        id={id}
-        notactive={page == "/dashboard" || !colrow ? false : true}
-      >
-        Continue
-      </BlackButton>
-    </div>
+      <span>
+        <BlackButton
+          id={id}
+          notactive={page == "/dashboard" || !colrow ? false : true}
+        >
+          Continue
+        </BlackButton>
+      </span>
+    </Grid>
   );
 }

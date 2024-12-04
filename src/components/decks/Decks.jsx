@@ -10,6 +10,8 @@ import styles from "../../Style/decks/Decks.module.css";
 
 // import component:
 import { Deck, NewDeck } from "../";
+import Grid from "@mui/material/Grid2";
+import { Box } from "@mui/material";
 
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -27,8 +29,8 @@ export default function Decks({ handleclose }) {
   const location = useLocation();
   const page = location.pathname;
   const [allDecks, setAllDecks] = useState([]);
-  const [colfilter, setcolfilter] = useState(0);
-  function handleClick2(filter) {
+  const [colfilter, setcolfilter] = useState(1);
+  function handlefilter2(filter) {
     if (filter == "row") setcolfilter(0);
     else if (filter == "col") setcolfilter(1);
     console.log(colfilter);
@@ -63,20 +65,24 @@ export default function Decks({ handleclose }) {
     <div>
       <span className={styles.flexrow}>
         <h2 className={styles.header}>Decks</h2>
-        <span className={page == "/dashboard" ? styles.none : styles.filters2}>
-          <img
-            className={colfilter ? "" : styles.deactivecolfilter}
-            onClick={() => handleClick2("col")}
-            src={f1icon}
-            alt=""
-          />
-          <img
-            className={colfilter ? styles.deactivecolfilter : ""}
-            onClick={() => handleClick2("row")}
-            src={f2icon}
-            alt=""
-          />
-        </span>
+        <Box display={{ xs: "none", md: "block" }}>
+          <span
+            className={page == "/dashboard" ? styles.none : styles.filters2}
+          >
+            <img
+              className={colfilter ? "" : styles.deactivecolfilter}
+              onClick={() => handlefilter2("col")}
+              src={f1icon}
+              alt=""
+            />
+            <img
+              className={colfilter ? styles.deactivecolfilter : ""}
+              onClick={() => handlefilter2("row")}
+              src={f2icon}
+              alt=""
+            />
+          </span>
+        </Box>
       </span>
       <span className={page == "/dashboard" ? styles.filters : styles.none}>
         <h3>All Decks</h3>
@@ -85,7 +91,10 @@ export default function Decks({ handleclose }) {
         <h3>Most Popular</h3>
       </span>
       <div className={styles.decksandfilter}>
-        <div
+        <Grid
+          container
+          rowSpacing={"2.4rem"}
+          columnSpacing={"1.6rem"}
           style={{ height: page == "/decks" ? "42rem" : "" }}
           className={styles.decks}
         >
@@ -111,7 +120,7 @@ export default function Decks({ handleclose }) {
               display={false}
             ></NewDeck>
           )}
-        </div>
+        </Grid>
         <div className={styles.filterdecks}></div>
       </div>
     </div>

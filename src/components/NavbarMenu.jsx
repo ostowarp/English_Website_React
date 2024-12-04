@@ -6,10 +6,11 @@ import styles from "../Style/NavbarMenu.module.css";
 import { Box } from "@mui/material";
 
 // import icons:
+import closeicon from "../assets/icons/closemenu.svg";
 import menuicon from "../assets/icons/menu.svg";
 import logo from "../assets/logo.png";
 
-const NavbarMenu = ({ li, openClose, window }) => {
+const NavbarMenu = ({ li, setWindow, window }) => {
   return (
     <>
       <Box
@@ -35,11 +36,17 @@ const NavbarMenu = ({ li, openClose, window }) => {
             }}
           >
             <Link to={"/dashboard"}>
-              <img className={styles.logo} src={logo} alt="logo" />
+              <img
+                className={styles.logo}
+                src={logo}
+                alt="logo"
+                onClick={() => setWindow(true)}
+              />
             </Link>
             <ul className={styles.items}>
               {li.map((item, i) => (
                 <NavLink
+                  onClick={() => setWindow(true)}
                   to={item[2]}
                   key={i}
                   className={({ isActive }) =>
@@ -67,12 +74,16 @@ const NavbarMenu = ({ li, openClose, window }) => {
               display={{ xs: "none", md: "block" }}
               className={styles.burger}
             >
-              <img src={menuicon} alt="burger" onClick={() => openClose()} />
+              <img
+                src={window ? menuicon : closeicon}
+                alt="burger"
+                onClick={() => setWindow(!window)}
+              />
             </Box>
           </div>
           <Box
             position={"absolute"}
-            top={"1rem"}
+            top={"6rem"}
             right={"-4.2rem"}
             display={{ xs: "block", md: "none" }}
             className={styles.burger}
@@ -83,9 +94,9 @@ const NavbarMenu = ({ li, openClose, window }) => {
                 backgroundColor: "black",
                 borderRadius: "5rem",
               }}
-              src={menuicon}
+              src={window ? menuicon : closeicon}
               alt="burger"
-              onClick={() => openClose()}
+              onClick={() => setWindow(!window)}
             />
           </Box>
         </nav>
